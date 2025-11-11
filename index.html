@@ -33,7 +33,7 @@
         "@type": "WebSite",
         "name": "Necropolis Modding Hub",
         "description": "Your comprehensive guide to modding Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.",
-        "url": "https://komikoza.github.io/necropolis/",
+        "url": "https://komikoza.github.io/necropolis",
         "about": {
             "@type": "VideoGame",
             "name": "Necropolis",
@@ -200,7 +200,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(var(--primary-rgb), 0.05);
+            background: rgba(var(--primary-rgb), 0.1);
             mix-blend-mode: overlay;
             z-index: 1;
             pointer-events: none;
@@ -214,8 +214,10 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: carousel-fade 48s infinite;
-            filter: grayscale(100%) brightness(0.9);
+            animation: carousel-fade 30s infinite;
+            filter: grayscale(100%);
+            transform: translateZ(0);
+            will-change: opacity;
         }
 
         header .bg-carousel img:nth-child(1) {
@@ -237,21 +239,12 @@
         header .bg-carousel img:nth-child(5) {
             animation-delay: 24s;
         }
-        header .bg-carousel img:nth-child(6) {
-            animation-delay: 30s;
-        }
-        header .bg-carousel img:nth-child(7) {
-            animation-delay: 36s;
-        }
-        header .bg-carousel img:nth-child(8) {
-            animation-delay: 42s;
-        }
         
         @keyframes carousel-fade {
             0% { opacity: 0; }
-            2% { opacity: 0.2; }
-            10% { opacity: 0.2; }
-            12.5% { opacity: 0; }
+            3.33% { opacity: 0.18; }
+            16.67% { opacity: 0.18; }
+            20% { opacity: 0; }
             100% { opacity: 0; }
         }
         
@@ -866,18 +859,22 @@
     <header>
         <!-- Background Image Carousel -->
         <div class="bg-carousel">
-            <img src="https://i.imgur.com/aWn0g6M.jpeg" alt="">
-            <img src="https://i.imgur.com/j7zYC18.png" alt="">
-            <img src="https://i.imgur.com/bi2LsU7.png" alt="">
-            <img src="https://i.imgur.com/SolWX19.jpeg" alt="">
-            <img src="https://i.imgur.com/cAa6ck6.png" alt="">
-            <img src="https://i.imgur.com/c3i3KHW.png" alt="">
-			<img src="https://i.imgur.com/j7zYC18.png" alt="">
-			<img src="https://i.imgur.com/Qqs0G46.png" alt="">
+            <img src="https://i.imgur.com/EkUSlMg.jpeg" alt="">
+            <img src="https://i.imgur.com/GWPbG5O.jpeg" alt="">
+            <img src="https://i.imgur.com/uiupb4w.jpeg" alt="">
+            <img src="https://i.imgur.com/SiRDnia.jpeg" alt="">
+            <img src="https://i.imgur.com/K8QR09g.jpeg" alt="">
         </div>
         
         <div class="logo-container">
             <svg class="eye-symbol" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Eye Mask -->
+                <defs>
+                    <mask id="eye-mask">
+                        <rect width="200" height="200" fill="white"/>
+                        <circle cx="100" cy="105" r="10" fill="black"/>
+                    </mask>
+                </defs>
                 <!-- Outer circle -->
                 <circle cx="100" cy="100" r="90" fill="none" stroke-width="1.5" opacity="0.3"/>
 
@@ -891,10 +888,10 @@
                 <polygon points="100,60 145,125 55,125" fill="none" stroke-width="2"/>
                 
                 <!-- Eye -->
-                <polygon points="100,92 140,105 100,118 60,105" opacity="0.9"/>
+                <polygon points="100,92 140,105 100,118 60,105" opacity="0.9" mask="url(#eye-mask)"/>
                 
                 <!-- Pupil -->
-                <circle cx="100" cy="105" r="10" fill="#0a0a0a"/>
+                <circle cx="100" cy="105" r="10" fill="none"/>
             </svg>
         </div>
         <h1>Necropolis<br>Modding Hub</h1>
@@ -1142,6 +1139,22 @@
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+
+        // Pause carousel animations when hero section is not visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const carouselImages = entry.target.querySelectorAll('.bg-carousel img');
+                carouselImages.forEach(img => {
+                    if (!entry.isIntersecting) {
+                        img.style.animationPlayState = 'paused';
+                    } else {
+                        img.style.animationPlayState = 'running';
+                    }
+                });
+            });
+        }, { threshold: 0 });
+
+        heroObserver.observe(document.querySelector('header'));
 
         // Active navigation tracking based on scroll position
         const sections = document.querySelectorAll('section, header');
