@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="404 - Page not found | Necropolis Modding Hub">
     
     <!-- Brazen Icon -->
@@ -37,6 +37,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            max-width: 100vw;
         }
         
         body::before {
@@ -91,12 +92,22 @@
             transform: translateY(-50%);
             pointer-events: none;
             user-select: none;
-        }
-        
-        .nav-logo img {
             width: 50px;
             height: 50px;
-            filter: brightness(0) saturate(100%) invert(89%) sepia(14%) saturate(1804%) hue-rotate(92deg) brightness(103%) contrast(101%);
+        }
+        
+        .nav-logo-icon {
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-cyan);
+            mask-image: url('https://i.imgur.com/aGQGNWt.png');
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-image: url('https://i.imgur.com/aGQGNWt.png');
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
         }
         
         .nav-brand {
@@ -106,9 +117,9 @@
             letter-spacing: 0.15em;
             font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             margin-left: 60px;
-            text-shadow: 0 0 15px rgba(127, 255, 212, 0.6);
+            text-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
         }
         
         .nav-links {
@@ -218,7 +229,7 @@
         .error-logo {
             width: clamp(180px, 35vw, 280px);
             height: auto;
-            filter: drop-shadow(0 0 30px rgba(127, 255, 212, 0.4));
+            filter: drop-shadow(0 0 30px rgba(var(--primary-rgb), 0.4));
             animation: float 6s ease-in-out infinite;
             display: block;
         }
@@ -228,10 +239,21 @@
             50% { transform: translateY(-20px); }
         }
         
+        /* SVG color theming */
+        .error-logo circle,
+        .error-logo polygon {
+            stroke: var(--primary-cyan);
+        }
+        
+        .error-logo polygon[points="100,92 140,105 100,118 60,105"] {
+            fill: var(--primary-cyan);
+            stroke: none;
+        }
+        
         .error-code {
             font-size: clamp(8rem, 20vw, 15rem);
             color: var(--primary-cyan);
-            text-shadow: 0 0 40px rgba(127, 255, 212, 0.5);
+            text-shadow: 0 0 40px rgba(var(--primary-rgb), 0.5);
             line-height: 1;
             margin-bottom: 1rem;
             font-weight: 100;
@@ -298,7 +320,7 @@
         
         .error-link:hover {
             color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(127, 255, 212, 0.5);
+            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
         }
         
         /* Footer */
@@ -311,12 +333,35 @@
         }
         
         footer p {
-            color: var(--text-secondary);
+            color: var(--primary-cyan);
             font-size: 0.9rem;
+        }
+        
+        .footer-link {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-link:hover::after {
+            width: 100%;
         }
         
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -325,7 +370,7 @@
     <nav>
         <div class="nav-content">
             <div class="nav-logo">
-                <img src="https://i.imgur.com/aGQGNWt.png" alt="Necropolis Logo">
+                <div class="nav-logo-icon"></div>
             </div>
             <a href="/necropolis/index.html" class="nav-brand">Necropolis Modding Hub</a>
             <div class="nav-links" id="navLinks">
@@ -343,33 +388,40 @@
     <div class="error-container">
         <div class="logo-container">
             <svg class="error-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Eye Mask -->
+                <defs>
+                    <mask id="eye-mask">
+                        <rect width="200" height="200" fill="white"/>
+                        <circle cx="100" cy="105" r="10" fill="black"/>
+                    </mask>
+                </defs>
                 <!-- Outer circle -->
-                <circle cx="100" cy="100" r="90" fill="none" stroke="#7FFFD4" stroke-width="1.5" opacity="0.3"/>
+                <circle cx="100" cy="100" r="90" fill="none" stroke-width="1.5" opacity="0.3"/>
 
                 <!-- Inner circle -->
-                <circle cx="100" cy="100" r="65" fill="none" stroke="#7FFFD4" stroke-width="1.5" opacity="0.5"/>
+                <circle cx="100" cy="100" r="65" fill="none" stroke-width="1.5" opacity="0.5"/>
                 
                 <!-- Outer triangle -->
-                <polygon points="100,15 180,150 20,150" fill="none" stroke="#7FFFD4" stroke-width="2"/>
+                <polygon points="100,15 180,150 20,150" fill="none" stroke-width="2"/>
 
                 <!-- Inner triangle -->
-                <polygon points="100,60 145,125 55,125" fill="none" stroke="#7FFFD4" stroke-width="2"/>
+                <polygon points="100,60 145,125 55,125" fill="none" stroke-width="2"/>
                 
                 <!-- Eye -->
-                <polygon points="100,92 140,105 100,118 60,105" fill="#7FFFD4" opacity="0.9"/>
+                <polygon points="100,92 140,105 100,118 60,105" opacity="0.9" mask="url(#eye-mask)"/>
                 
                 <!-- Pupil -->
-                <circle cx="100" cy="105" r="10" fill="#0a0a0a"/>
+                <circle cx="100" cy="105" r="10" fill="none"/>
             </svg>
         </div>
         <div class="error-code">404</div>
         <h1 class="error-title">Lost in the Necropolis</h1>
         <p class="error-message">
-            The page you seek has been consumed by the dungeon's ever-shifting architecture.
+            The page you seek has been consumed by the dungeon's ever-shifting architecture. Now get out.
         </p>
         <div class="error-links">
             <a href="/necropolis/index.html" class="error-link">
-                <span>Teleport me back</span>
+                <span>Teleport me back please</span>
             </a>
         </div>
     </div>
@@ -377,16 +429,62 @@
     <!-- Footer -->
     <footer>
         <p>
-            Necropolis Modding Hub © 2025 | Community-driven project | Game IP © Paradox Interactive<br>
-            Not affiliated with Harebrained Schemes or Paradox Interactive | Designed by KoMiKoZa
+            Necropolis Community Revival © 2025 | Community-driven project | Game IP © Paradox Interactive<br>
+            Not affiliated with Harebrained Schemes or Paradox Interactive | Designed by <a href="https://github.com/KoMiKoZa" target="_blank" class="footer-link">KoMiKoZa</a>
         </p>
     </footer>
 
     <script>
+        // Random color theme
+        const themeColors = [
+            '#7FFFD4', // Cyan (default)
+            '#FF6B6B', // Light Red
+            '#87CEEB', // Light Blue
+            '#DDA0DD', // Light Purple
+            '#F0E68C', // Light Yellow
+            '#90EE90', // Light Green
+            '#E8E8E8', // Light Gray
+            '#FFB6C1'  // Light Pink
+        ];
+        const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+        
+        // Convert hex to RGB for rgba usage
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        const rgb = hexToRgb(randomColor);
+        const rgbString = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+        
+        // Set CSS custom properties
+        document.documentElement.style.setProperty('--primary-cyan', randomColor);
+        document.documentElement.style.setProperty('--primary-rgb', rgbString);
+        
+        // Dynamic favicon based on color theme
+        const faviconUrls = {
+            '#7FFFD4': 'https://i.imgur.com/TNk3bFj.png',      // Cyan
+            '#FF6B6B': 'https://i.imgur.com/AokFtxY.png',       // Light Red
+            '#87CEEB': 'https://i.imgur.com/bwMR7E6.png',      // Light Blue
+            '#DDA0DD': 'https://i.imgur.com/DC4WWtl.png',    // Light Purple
+            '#F0E68C': 'https://i.imgur.com/qkrs6Mj.png',    // Light Yellow
+            '#90EE90': 'https://i.imgur.com/KqMSJHE.png',     // Light Green
+            '#E8E8E8': 'https://i.imgur.com/wH3kU7J.png',      // Light Gray
+            '#FFB6C1': 'https://i.imgur.com/9bHhcRu.png'       // Light Pink
+        };
+        
+        const favicon = document.querySelector("link[rel='icon']");
+        if (favicon && faviconUrls[randomColor]) {
+            favicon.href = faviconUrls[randomColor];
+        }
+        
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
     </script>
 </body>
-
 </html>
