@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="404 - Page not found | Necropolis Modding Hub">
+    
+    <!-- Brazen Icon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/E2l79g1.png">
+    
+    <title>404 - Lost in the Necropolis</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-cyan: #7FFFD4;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-red: #8B2635;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(127, 255, 212, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(139, 38, 53, 0.03) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        h1, h2 {
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(5, 5, 5, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(127, 255, 212, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-logo {
+            position: absolute;
+            left: 0;
+            top: 60%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .nav-logo img {
+            width: 50px;
+            height: 50px;
+            filter: brightness(0) saturate(100%) invert(89%) sepia(14%) saturate(1804%) hue-rotate(92deg) brightness(103%) contrast(101%);
+        }
+        
+        .nav-brand {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 60px;
+            text-shadow: 0 0 15px rgba(127, 255, 212, 0.6);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-cyan);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle:hover {
+            background: rgba(127, 255, 212, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--darker-bg);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(127, 255, 212, 0.2);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                width: 100%;
+                padding: 1rem 2rem;
+                text-align: center;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        /* 404 Container */
+        .error-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .logo-container {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .error-logo {
+            width: clamp(180px, 35vw, 280px);
+            height: auto;
+            filter: drop-shadow(0 0 30px rgba(127, 255, 212, 0.4));
+            animation: float 6s ease-in-out infinite;
+            display: block;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .error-code {
+            font-size: clamp(8rem, 20vw, 15rem);
+            color: var(--primary-cyan);
+            text-shadow: 0 0 40px rgba(127, 255, 212, 0.5);
+            line-height: 1;
+            margin-bottom: 1rem;
+            font-weight: 100;
+        }
+        
+        .error-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--primary-cyan);
+            margin-bottom: 1.5rem;
+        }
+        
+        .error-message {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+        
+        .error-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .error-link {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .error-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-cyan);
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+        
+        .error-link span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .error-link:hover::before {
+            left: 0;
+        }
+        
+        .error-link:hover {
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(127, 255, 212, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(127, 255, 212, 0.1);
+            margin-top: auto;
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="nav-logo">
+                <img src="https://i.imgur.com/aGQGNWt.png" alt="Necropolis Logo">
+            </div>
+            <a href="index.html" class="nav-brand">Necropolis Modding Hub</a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#guide" class="nav-link">Guide</a>
+                <a href="index.html#mods" class="nav-link">Mods</a>
+                <a href="index.html#faq" class="nav-link">FAQ</a>
+                <a href="index.html#community" class="nav-link">Community</a>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- 404 Content -->
+    <div class="error-container">
+        <div class="logo-container">
+            <svg class="error-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer circle -->
+                <circle cx="100" cy="100" r="90" fill="none" stroke="#7FFFD4" stroke-width="1.5" opacity="0.3"/>
+
+                <!-- Inner circle -->
+                <circle cx="100" cy="100" r="65" fill="none" stroke="#7FFFD4" stroke-width="1.5" opacity="0.5"/>
+                
+                <!-- Outer triangle -->
+                <polygon points="100,15 180,150 20,150" fill="none" stroke="#7FFFD4" stroke-width="2"/>
+
+                <!-- Inner triangle -->
+                <polygon points="100,60 145,125 55,125" fill="none" stroke="#7FFFD4" stroke-width="2"/>
+                
+                <!-- Eye -->
+                <polygon points="100,92 140,105 100,118 60,105" fill="#7FFFD4" opacity="0.9"/>
+                
+                <!-- Pupil -->
+                <circle cx="100" cy="105" r="10" fill="#0a0a0a"/>
+            </svg>
+        </div>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Lost in the Necropolis</h1>
+        <p class="error-message">
+            The page you seek has been consumed by the dungeon's ever-shifting architecture.
+        </p>
+        <div class="error-links">
+            <a href="index.html" class="error-link">
+                <span>Teleport me back</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            Necropolis Modding Hub © 2025 | Community-driven project | Game IP © Paradox Interactive<br>
+            Not affiliated with Harebrained Schemes or Paradox Interactive | Designed by KoMiKoZa
+        </p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
