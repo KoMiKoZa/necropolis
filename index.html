@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Necropolis Modding Hub - Your comprehensive guide to modding Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.">
-    <meta name="keywords" content="Necropolis mods, Necropolis modding, BepInEx, Abraxist, Brazen Head, Necropolis 2016, Necropolis Brutal Edition, Thunderstore, dungeon crawler mods, Necropolis community, game modding guide">
+    <meta name="keywords" content="Necropolis mods, Necropolis modding, BepInEx, Abraxist, Brazen Head, Necropolis 2016, Necropolis Brutal Edition, Thunderstore, roguelite, roguelike, soulslike, Necropolis community, game modding guide, necropolis game">
     <meta name="author" content="Necropolis Community">
 
     <!-- Brazen Icon -->
@@ -15,13 +15,13 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://komikoza.github.io/necropolis/">
     <meta property="og:title" content="Necropolis Modding Hub">
-    <meta property="og:description" content="The ultimate modding resource for Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.">
+    <meta property="og:description" content="Your comprehensive guide to modding Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.">
     <meta property="og:image" content="https://i.imgur.com/kKEs1Rn.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Necropolis Modding Hub">
-    <meta name="twitter:description" content="Community modding hub for Necropolis (2016) - BepInEx guides, mods, and community resources">
+    <meta name="twitter:description" content="Your comprehensive guide to modding Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.">
     <meta name="twitter:image" content="https://i.imgur.com/kKEs1Rn.png">
     
     <title>Necropolis Modding Hub</title>
@@ -32,8 +32,8 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Necropolis Modding Hub",
-        "description": "Community-driven modding hub for Necropolis (2016) - BepInEx guides, mods, and resources",
-        "url": "https://komikoza.github.io/necropolis",
+        "description": "Your comprehensive guide to modding Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.",
+        "url": "https://komikoza.github.io/necropolis/",
         "about": {
             "@type": "VideoGame",
             "name": "Necropolis",
@@ -114,7 +114,6 @@
             background: var(--dark-bg);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
             position: relative;
         }
         
@@ -216,7 +215,7 @@
             object-fit: cover;
             opacity: 0;
             animation: carousel-fade 48s infinite;
-            filter: grayscale(100%) brightness(0.5);
+            filter: grayscale(100%) brightness(0.9);
         }
 
         header .bg-carousel img:nth-child(1) {
@@ -250,9 +249,9 @@
         
         @keyframes carousel-fade {
             0% { opacity: 0; }
-            8% { opacity: 0.2; }
-            12.5% { opacity: 0.2; }
-            20% { opacity: 0; }
+            2% { opacity: 0.2; }
+            10% { opacity: 0.2; }
+            12.5% { opacity: 0; }
             100% { opacity: 0; }
         }
         
@@ -677,14 +676,13 @@
         /* Sticky Navigation */
         nav {
             background: rgba(5, 5, 5, 0.5);
-            position:fixed;
             padding: 1rem 2rem;
             border-bottom: 1px solid rgba(var(--primary-rgb), 0.3);
+            position: sticky;
             top: 0;
-            width: 100%;
             z-index: 1000;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            --webkit-backdrop-filter: blur(5px);
         }
         
         .nav-content {
@@ -790,7 +788,12 @@
         
         @media (max-width: 768px) {
             nav {
-                position: relative;
+                padding: 1rem 0;
+                width: 100%;
+            }
+            
+            .nav-content {
+                padding: 0 1rem;
             }
             
             .nav-links {
@@ -841,8 +844,6 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <header>
     <!-- Sticky Navigation -->
     <nav>
         <div class="nav-content">
@@ -860,7 +861,9 @@
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
-
+    
+    <!-- Hero Section -->
+    <header>
         <!-- Background Image Carousel -->
         <div class="bg-carousel">
             <img src="https://i.imgur.com/aWn0g6M.jpeg" alt="">
@@ -1089,6 +1092,23 @@
         // Set CSS custom properties
         document.documentElement.style.setProperty('--primary-cyan', randomColor);
         document.documentElement.style.setProperty('--primary-rgb', rgbString);
+
+        // Dynamic favicon based on color theme
+        const faviconUrls = {
+            '#7FFFD4': 'https://i.imgur.com/TNk3bFj.png',      // Cyan
+            '#FF6B6B': 'https://i.imgur.com/AokFtxY.png',       // Light Red
+            '#87CEEB': 'https://i.imgur.com/bwMR7E6.png',      // Light Blue
+            '#DDA0DD': 'https://i.imgur.com/DC4WWtl.png',    // Light Purple
+            '#F0E68C': 'https://i.imgur.com/qkrs6Mj.png',    // Light Yellow
+            '#90EE90': 'https://i.imgur.com/KqMSJHE.png',     // Light Green
+            '#E8E8E8': 'https://i.imgur.com/wH3kU7J.png',      // Light Gray
+            '#FFB6C1': 'https://i.imgur.com/9bHhcRu.png'       // Light Pink
+        };
+        
+        const favicon = document.querySelector("link[rel='icon']");
+        if (favicon && faviconUrls[randomColor]) {
+            favicon.href = faviconUrls[randomColor];
+        }
 
         // Inject CSS for step triangles with dynamic color
         const styleSheet = document.createElement('style');
