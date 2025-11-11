@@ -14,13 +14,13 @@
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://komikoza.github.io/necropolis/">
-    <meta property="og:title" content="Necropolis Modding Hub - BepInEx & CSV Mods">
-    <meta property="og:description" content="The ultimate modding resource for Necropolis (2016). BepInEx installation, mod guides, and community-driven revival.">
+    <meta property="og:title" content="Necropolis Modding Hub">
+    <meta property="og:description" content="The ultimate modding resource for Necropolis (2016) with BepInEx. Installation guides, mod downloads, and community resources for the reborn roguelite.">
     <meta property="og:image" content="https://i.imgur.com/kKEs1Rn.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Necropolis Modding Hub - BepInEx & CSV Mods">
+    <meta name="twitter:title" content="Necropolis Modding Hub">
     <meta name="twitter:description" content="Community modding hub for Necropolis (2016) - BepInEx guides, mods, and community resources">
     <meta name="twitter:image" content="https://i.imgur.com/kKEs1Rn.png">
     
@@ -33,7 +33,7 @@
         "@type": "WebSite",
         "name": "Necropolis Modding Hub",
         "description": "Community-driven modding hub for Necropolis (2016) - BepInEx guides, mods, and resources",
-        "url": "https://yourusername.github.io/necropolis-revival/",
+        "url": "https://komikoza.github.io/necropolis",
         "about": {
             "@type": "VideoGame",
             "name": "Necropolis",
@@ -149,7 +149,7 @@
         h1 {
             font-size: clamp(2rem, 5vw, 4rem);
             color: var(--primary-cyan);
-            text-shadow: 0 0 20px rgba(127, 255, 212, 0.5);
+            text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
         }
         
         h2 {
@@ -193,6 +193,19 @@
             height: 100%;
             z-index: 0;
         }
+
+        header .bg-carousel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(var(--primary-rgb), 0.05);
+            mix-blend-mode: overlay;
+            z-index: 1;
+            pointer-events: none;
+        }
         
         header .bg-carousel img {
             position: absolute;
@@ -202,35 +215,44 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: carousel-fade 30s infinite;
-            filter: grayscale(100%) brightness(0.6);
+            animation: carousel-fade 48s infinite;
+            filter: grayscale(100%) brightness(0.5);
         }
-        
+
         header .bg-carousel img:nth-child(1) {
             animation-delay: 0s;
         }
-        
+
         header .bg-carousel img:nth-child(2) {
             animation-delay: 6s;
         }
-        
+
         header .bg-carousel img:nth-child(3) {
             animation-delay: 12s;
         }
-        
+
         header .bg-carousel img:nth-child(4) {
             animation-delay: 18s;
         }
-        
+
         header .bg-carousel img:nth-child(5) {
             animation-delay: 24s;
+        }
+        header .bg-carousel img:nth-child(6) {
+            animation-delay: 30s;
+        }
+        header .bg-carousel img:nth-child(7) {
+            animation-delay: 36s;
+        }
+        header .bg-carousel img:nth-child(8) {
+            animation-delay: 42s;
         }
         
         @keyframes carousel-fade {
             0% { opacity: 0; }
-            5% { opacity: 0.2; }
-            20% { opacity: 0.2; }
-            25% { opacity: 0; }
+            8% { opacity: 0.2; }
+            12.5% { opacity: 0.2; }
+            20% { opacity: 0; }
             100% { opacity: 0; }
         }
         
@@ -248,13 +270,24 @@
         .eye-symbol {
             width: clamp(150px, 30vw, 300px);
             height: auto;
-            filter: drop-shadow(0 0 30px rgba(127, 255, 212, 0.4));
+            filter: drop-shadow(0 0 30px rgba(var(--primary-rgb), 0.4));
             animation: float 6s ease-in-out infinite;
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
+        }
+        
+        /* SVG color theming */
+        .eye-symbol circle,
+        .eye-symbol polygon {
+            stroke: var(--primary-cyan);
+        }
+        
+        .eye-symbol polygon[points="100,92 140,105 100,118 60,105"] {
+            fill: var(--primary-cyan);
+            stroke: none;
         }
         
         .tagline {
@@ -303,7 +336,7 @@
         
         .cta-button:hover {
             color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(127, 255, 212, 0.5);
+            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
         }
         
         /* Container */
@@ -355,7 +388,7 @@
         
         .step:hover {
             transform: translateX(10px);
-            box-shadow: -5px 5px 20px rgba(127, 255, 212, 0.1);
+            box-shadow: -5px 5px 20px rgba(var(--primary-rgb), 0.1);
         }
         
         .step::before {
@@ -367,7 +400,7 @@
             transform: translateY(-50%);
             width: 55px;
             height: 55px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="%237FFFD4"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="%230a0a0a">1</text></svg>');
+            background-image: var(--step-svg);
             background-size: contain;
             background-repeat: no-repeat;
         }
@@ -445,7 +478,7 @@
 
         .mod-card:hover {
             border-color: var(--primary-cyan);
-            box-shadow: 0 5px 20px rgba(127, 255, 212, 0.2);
+            box-shadow: 0 5px 20px rgba(var(--primary-rgb), 0.2);
             transform: translateY(-5px);
         }
         
@@ -479,7 +512,7 @@
         .mod-tag {
             display: inline-block;
             padding: 0.3rem 0.8rem;
-            background: rgba(127, 255, 212, 0.1);
+            background: color-mix(in srgb, var(--primary-cyan) 10%, transparent);
             color: var(--primary-cyan);
             border-radius: 20px;
             font-size: 0.85rem;
@@ -490,7 +523,7 @@
         .mod-tag2 {
             display: inline-block;
             padding: 0.3rem 0.8rem;        
-            background: rgba(138, 255, 128, 0.1);
+            background: color-mix(in srgb, var(--primary-cyan) 10%, transparent);
             border-radius: 1px;
             font-size: 0.85rem;
             margin-right: 0.5rem;
@@ -550,7 +583,7 @@
         .community-link:hover {
             background: var(--primary-cyan);
             color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(127, 255, 212, 0.4);
+            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4);
         }
         
         .mod-repo-disabled {
@@ -599,8 +632,30 @@
         }
         
         footer p {
-            color: var(--text-secondary);
+            color: var(--primary-cyan);
             font-size: 0.9rem;
+        }
+        
+        .footer-link {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-link:hover::after {
+            width: 100%;
         }
         
         /* Responsive adjustments */
@@ -621,13 +676,15 @@
         
         /* Sticky Navigation */
         nav {
-            background: rgba(5, 5, 5, 0.95);
+            background: rgba(5, 5, 5, 0.5);
+            position:fixed;
             padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(127, 255, 212, 0.2);
-            position: sticky;
+            border-bottom: 1px solid rgba(var(--primary-rgb), 0.3);
             top: 0;
+            width: 100%;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .nav-content {
@@ -646,12 +703,22 @@
             transform: translateY(-50%);
             pointer-events: none;
             user-select: none;
-        }
-        
-        .nav-logo img {
             width: 50px;
             height: 50px;
-            filter: brightness(0) saturate(100%) invert(89%) sepia(14%) saturate(1804%) hue-rotate(92deg) brightness(103%) contrast(101%);
+        }
+        
+        .nav-logo-icon {
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-cyan);
+            mask-image: url('https://i.imgur.com/aGQGNWt.png');
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-image: url('https://i.imgur.com/aGQGNWt.png');
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
         }
         
         .nav-brand {
@@ -663,7 +730,7 @@
             font-weight: 600;
             transition: all 0.5s ease;
             margin-left: 60px;
-            text-shadow: 0 0 15px rgba(127, 255, 212, 0.6);
+            text-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
         }
 
         .nav-links {
@@ -757,6 +824,7 @@
         /* Smooth scroll */
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
         
         /* Link styling */
@@ -773,29 +841,30 @@
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
+    <header>
     <!-- Sticky Navigation -->
     <nav>
         <div class="nav-content">
             <div class="nav-logo">
-                <img src="https://i.imgur.com/aGQGNWt.png" alt="Necropolis Logo">
+                <div class="nav-logo-icon"></div>
             </div>
             <a href="index.html" class="nav-brand">Necropolis Modding Hub</a>
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="#guide" class="nav-link">Guide</a>
-                <a href="#mods" class="nav-link">Mods</a>
-                <a href="#faq" class="nav-link">FAQ</a>
-                <a href="#community" class="nav-link">Community</a>
+                <a href="#" class="nav-link active" data-section="home">Home</a>
+                <a href="#guide" class="nav-link" data-section="guide">Guide</a>
+                <a href="#mods" class="nav-link" data-section="mods">Mods</a>
+                <a href="#faq" class="nav-link" data-section="faq">FAQ</a>
+                <a href="#community" class="nav-link" data-section="community">Community</a>
             </div>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
-    
-    <!-- Hero Section -->
-    <header>
+
         <!-- Background Image Carousel -->
         <div class="bg-carousel">
             <img src="https://i.imgur.com/aWn0g6M.jpeg" alt="">
+            <img src="https://i.imgur.com/j7zYC18.png" alt="">
             <img src="https://i.imgur.com/bi2LsU7.png" alt="">
             <img src="https://i.imgur.com/SolWX19.jpeg" alt="">
             <img src="https://i.imgur.com/cAa6ck6.png" alt="">
@@ -807,19 +876,19 @@
         <div class="logo-container">
             <svg class="eye-symbol" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <!-- Outer circle -->
-                <circle cx="100" cy="100" r="90" fill="none" stroke="#7FFFD4" stroke-width="1.5" opacity="0.3"/>
+                <circle cx="100" cy="100" r="90" fill="none" stroke-width="1.5" opacity="0.3"/>
 
                 <!-- Inner circle -->
-                <circle cx="100" cy="100" r="65" fill="none" stroke="#7FFFD4" stroke-width="1.5" opacity="0.5"/>
+                <circle cx="100" cy="100" r="65" fill="none" stroke-width="1.5" opacity="0.5"/>
                 
                 <!-- Outer triangle -->
-                <polygon points="100,15 180,150 20,150" fill="none" stroke="#7FFFD4" stroke-width="2"/>
+                <polygon points="100,15 180,150 20,150" fill="none" stroke-width="2"/>
 
                 <!-- Inner triangle -->
-                <polygon points="100,60 145,125 55,125" fill="none" stroke="#7FFFD4" stroke-width="2"/>
+                <polygon points="100,60 145,125 55,125" fill="none" stroke-width="2"/>
                 
                 <!-- Eye -->
-                <polygon points="100,92 140,105 100,118 60,105" fill="#7FFFD4" opacity="0.9"/>
+                <polygon points="100,92 140,105 100,118 60,105" opacity="0.9"/>
                 
                 <!-- Pupil -->
                 <circle cx="100" cy="105" r="10" fill="#0a0a0a"/>
@@ -895,15 +964,13 @@
         <!-- Featured Mods -->
         <section id="mods">
             <h2>Featured Mods</h2>
-			<p style="color: var(--text-secondary); margin-bottom: 3rem;">Start here.</p>
             <div class="mod-grid">
                 <a href="mods/mod-config-manager.html" class="mod-card-link">
                     <div class="mod-card">
                         <h3>Mod Config Manager</h3>
-                        <p>Essential UI framework for configuring mods in-game. Provides a clean interface for adjusting mod settings without editing config files.</p>
+                        <p>Essential UI framework...</p>
                         <span class="mod-tag2">v1.0.0</span>
                         <span class="mod-tag">Core</span>
-                        <span class="mod-tag">UI</span>
                     </div>
                 </a>
 
@@ -975,7 +1042,7 @@
                 Other dungeon delvers are out there. Share mods. Get help. Complain about game difficulty. We're all in this together.
             </p>
             <div class="community-links">
-                <a href="https://discord.gg/2233yFQ" class="community-link">Discord Server</a>
+                <a href="#" class="community-link">Discord Server</a>
                 <a href="#" class="community-link mod-repo-disabled" title="Thunderstore mod page is being set up - coming soon!">Mod Repository</a>
                 <a href="https://store.steampowered.com/app/384490/NECROPOLIS_BRUTAL_EDITION/" class="community-link" target="_blank">Steam Page</a>
                 <a href="https://necropolis.fandom.com/wiki/Necropolis_Wiki" class="community-link" target="_blank">Necropolis Wiki</a>
@@ -987,12 +1054,53 @@
     <footer>
         <p>
             Necropolis Modding Hub © 2025 | Community-driven project | Game IP © Paradox Interactive<br>
-            Not affiliated with Harebrained Schemes or Paradox Interactive | Designed by KoMiKoZa
+            Not affiliated with Harebrained Schemes or Paradox Interactive | Designed by <a href="https://github.com/KoMiKoZa" target="_blank" class="footer-link">KoMiKoZa</a>
         </p>
     </footer>
 
     <!-- Simple scroll reveal animation -->
     <script>
+        // Random color theme (matches game mechanic)
+        const themeColors = [
+            '#7FFFD4', // Cyan (default)
+            '#FF6B6B', // Light Red
+            '#87CEEB', // Light Blue
+            '#DDA0DD', // Light Purple
+            '#F0E68C', // Light Yellow
+            '#90EE90', // Light Green
+            '#E8E8E8', // Light Gray
+            '#FFB6C1'  // Light Pink
+        ];
+        const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+        
+        // Convert hex to RGB for rgba usage
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        const rgb = hexToRgb(randomColor);
+        const rgbString = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+        
+        // Set CSS custom properties
+        document.documentElement.style.setProperty('--primary-cyan', randomColor);
+        document.documentElement.style.setProperty('--primary-rgb', rgbString);
+
+        // Inject CSS for step triangles with dynamic color
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            .step:nth-child(1)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">1</text></svg>'); }
+            .step:nth-child(2)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">2</text></svg>'); }
+            .step:nth-child(3)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">3</text></svg>'); }
+            .step:nth-child(4)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">4</text></svg>'); }
+            .step:nth-child(5)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">5</text></svg>'); }
+        `;
+        document.head.appendChild(styleSheet);
+
         // Smooth scroll reveal
         const observerOptions = {
             threshold: 0.1,
@@ -1015,6 +1123,46 @@
             observer.observe(el);
         });
 
+        // Active navigation tracking based on scroll position
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNav() {
+            let current = 'home';
+            const scrollY = window.scrollY;
+
+            // Check if at top of page
+            if (scrollY < 200) {
+                current = 'home';
+            } else {
+                // Find which section is currently in view
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id') || 'home';
+                    }
+                });
+            }
+
+            // Update active class on nav links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Listen for scroll events
+        window.addEventListener('scroll', updateActiveNav);
+        
+        // Handle home link click to scroll to top
+        document.querySelector('[data-section="home"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         // Add year to footer
         document.querySelector('footer p').innerHTML = 
             document.querySelector('footer p').innerHTML.replace('2025', new Date().getFullYear());
@@ -1025,5 +1173,4 @@
         }
     </script>
 </body>
-
 </html>
