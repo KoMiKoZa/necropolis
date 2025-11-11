@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Download Mod Config Menu for Necropolis (2016). Configure all your mods in-game with a seamless UI. No more editing config files manually.">
+    <meta name="keywords" content="Necropolis mods, Necropolis game, Mod Config Menu, BepInEx config, in-game settings, Necropolis modding, UI mod">
+    <meta name="author" content="KoMiKoZa">
+
+    <!-- Brazen Icon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/E2l79g1.png">
+    
+    <title>Mod Config Menu by KoMiKoZa - Necropolis Modding Hub</title>
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://komikoza.github.io/necropolis/mods/mod-config-menu.html">
+    <meta property="og:title" content="Mod Config Menu - Necropolis Mod">
+    <meta property="og:description" content="Configure all your Necropolis mods in-game with seamless UI integration. No more manual config file editing. Essential BepInEx framework.">
+    <meta property="og:image" content="https://i.imgur.com/kKEs1Rn.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mod Config Menu - Necropolis Mod">
+    <meta name="twitter:description" content="Configure all your Necropolis mods in-game with seamless UI integration. No more manual config file editing. Essential BepInEx framework.">
+    <meta name="twitter:image" content="https://i.imgur.com/kKEs1Rn.png">
+
+    <!-- Schema.org JSON-LD for Mod Page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Mod Config Menu",
+        "applicationCategory": "GameMod",
+        "description": "Essential UI framework for in-game mod configuration. Visualizes BepInEx config files and allows editing them directly within the game with seamless integration.",
+        "author": {
+            "@type": "Person",
+            "name": "KoMiKoZa",
+            "url": "https://github.com/KoMiKoZa"
+        },
+        "softwareVersion": "1.0.1",
+        "operatingSystem": "Windows",
+        "applicationSubCategory": "UI Framework",
+        "featureList": [
+            "In-game mod configuration interface",
+            "Visualizes BepInEx config files",
+            "Edit settings without restarting game",
+            "Seamless UI integration",
+            "Framework for other mods"
+        ],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "isPartOf": [
+            {
+                "@type": "VideoGame",
+                "name": "Necropolis",
+                "alternateName": "Necropolis: Brutal Edition"
+            },
+            {
+                "@type": "WebSite",
+                "name": "Necropolis Modding Hub",
+                "url": "https://komikoza.github.io/necropolis"
+            }
+        ],
+        "keywords": "Mod Config Menu, BepInEx config, in-game settings, UI framework, Necropolis mods"
+    }
+    </script>
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-cyan: #7FFFD4;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-red: #8B2635;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(var(--primary-rgb), 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(139, 38, 53, 0.03) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--primary-cyan);
+            text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--primary-cyan);
+            margin: 3rem 0 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), transparent);
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(5, 5, 5, 0.3);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(var(--primary-rgb), 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            --webkit-backdrop-filter: blur(5px);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .nav-logo {
+            position: absolute;
+            left: 0;
+            top: 60%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .nav-logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-cyan);
+            mask-image: url('https://i.imgur.com/aGQGNWt.png');
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-image: url('https://i.imgur.com/aGQGNWt.png');
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+        }
+        
+        .nav-brand {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 60px;
+            text-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-cyan);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-cyan);
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle:hover {
+            background: rgba(var(--primary-rgb), 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--darker-bg);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                width: 100%;
+                padding: 1rem 2rem;
+                text-align: center;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        /* Author */
+        .author {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .author a {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .author a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        .author a:hover {
+            color: var(--primary-cyan);
+        }
+        
+        .author a:hover::after {
+            width: 100%;
+        }
+        
+        .author a.active {
+            color: var(--primary-cyan);
+        }
+        
+        .author a.active::after {
+            width: 100%;
+        }
+        
+        .author span {
+            color: var(--primary-cyan);
+        }
+        
+        /* Tags */
+        .tags {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary-cyan);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(var(--primary-rgb), 0.2);
+        }
+        
+        /* Separator */
+        .separator {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), transparent);
+            margin: 3rem 0;
+        }
+        
+        /* Content sections */
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-left: 4px solid var(--primary-cyan);
+            border-radius: 4px;
+            line-height: 1.8;
+        }
+        
+        .section-content p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .section-content ul, .section-content ol {
+            margin-left: 2rem;
+            color: var(--text-secondary);
+        }
+        
+        .section-content li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .section-content code {
+            background: var(--darker-bg);
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            color: var(--primary-cyan);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        /* Download button */
+        .download-container {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            background: transparent;
+            border: 3px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-cyan);
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+        
+        .download-btn span {
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+        
+        .download-btn .download-text {
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-btn .download-filename {
+            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+            text-transform: none;
+            margin-top: 0;
+            color: inherit;
+        }
+        
+        .download-btn:hover::before {
+            left: 0;
+        }
+        
+        .download-btn:hover {
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px rgba(var(--primary-rgb), 0.6);
+        }
+        
+        /* Version History Accordion */
+        .version-history {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .version-toggle {
+            background: transparent;
+            border: 1px solid rgba(var(--primary-rgb), 0.3);
+            color: var(--text-secondary);
+            padding: 0.75rem 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .version-toggle:hover {
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+        }
+        
+        .version-toggle-icon {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .version-toggle.active .version-toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .version-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .version-list.active {
+            max-height: 1000px;
+        }
+        
+        .version-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(var(--primary-rgb), 0.2);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        
+        .version-item:hover {
+            border-color: rgba(var(--primary-rgb), 0.4);
+            box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.1);
+        }
+        
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .version-info h3 {
+            color: var(--primary-cyan);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .version-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .version-download {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .version-download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-cyan);
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+        
+        .version-download:hover::before {
+            left: 0;
+        }
+        
+        .version-download:hover {
+            color: var(--dark-bg);
+        }
+        
+        .version-download span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .version-changelog {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .version-changelog li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .version-changelog li::before {
+            content: '▸';
+            color: var(--primary-cyan);
+            position: absolute;
+            left: -1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .version-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        /* Footer note */
+        .footer-note {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(var(--primary-rgb), 0.1);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(var(--primary-rgb), 0.1);
+        }
+        
+        footer p {
+            color: var(--primary-cyan);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--primary-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.6);
+        }
+        
+        footer a:hover::after {
+            width: 100%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Media Carousel */
+        .media-carousel {
+            margin: 3rem 0;
+            background: var(--card-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+        }
+        
+        .carousel-main {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--darker-bg);
+            overflow: hidden;
+        }
+        
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--darker-bg);
+        }
+        
+        .carousel-item iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Carousel Controls */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--primary-cyan);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-size: 2rem;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .carousel-nav:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.8);
+            transform: translateY(-50%) scale(1.2);
+        }
+        
+        .carousel-nav.prev {
+            left: 1rem;
+        }
+        
+        .carousel-nav.next {
+            right: 1rem;
+        }
+        
+        /* Carousel Thumbnails */
+        .carousel-thumbs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: var(--darker-bg);
+        }
+        
+        .carousel-thumbs::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .carousel-thumbs::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        
+        .carousel-thumbs::-webkit-scrollbar-thumb {
+            background: var(--primary-cyan);
+            border-radius: 4px;
+        }
+        
+        .thumb {
+            min-width: 120px;
+            height: 68px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumb:hover {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
+        }
+        
+        .thumb.active {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.5);
+        }
+        
+        .thumb.video::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary-cyan);
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="nav-logo">
+                <div class="nav-logo-icon"></div>
+            </div>
+            <a href="../index.html" class="nav-brand">Necropolis Modding Hub</a>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#guide" class="nav-link">Guide</a>
+                <a href="../index.html#mods" class="nav-link active">Mods</a>
+                <a href="../index.html#faq" class="nav-link">FAQ</a>
+                <a href="../index.html#community" class="nav-link">Community</a>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Mod Header -->
+        <h1>Mod Config Menu</h1>
+        <h2>Version 1.0.1</h2>
+        <p class="author">by <span><a href="https://github.com/KoMiKoZa">KoMiKoZa</a></span></p>
+        
+        <!-- Tags -->
+        <div class="tags">
+            <span class="tag">Core</span>
+            <span class="tag">Config</span>
+            <span class="tag">UI</span>
+            <span class="tag">Framework</span>
+        </div>
+        
+        <div class="separator"></div>
+        
+        <!-- Media Carousel -->
+        <div class="media-carousel">
+            <div class="carousel-main">
+                <!-- Carousel Items -->
+                <div class="carousel-item active">
+                    <img src="https://i.imgur.com/9JzOVp2.jpeg" alt="Mod Config Menu Screenshot 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.imgur.com/EnlsiOb.jpeg" alt="Mod Config Menu Screenshot 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.imgur.com/EP0W8am.jpeg" alt="Mod Config Menu Screenshot 3">
+                </div>
+                 <div class="carousel-item">
+                    <img src="https://i.imgur.com/PfQSQsB.jpeg" alt="Mod Config Menu Screenshot 4">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.imgur.com/bJpm1dy.jpeg" alt="Mod Config Menu Screenshot 5">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://i.imgur.com/UWrlqUz.jpeg" alt="Mod Config Menu Screenshot 6">
+                </div>
+                
+                <!-- Navigation Arrows -->
+                <div class="carousel-nav prev" onclick="changeSlide(-1)">◀</div>
+                <div class="carousel-nav next" onclick="changeSlide(1)">▶</div>
+            </div>
+            
+            <!-- Thumbnails -->
+            <div class="carousel-thumbs">
+                <div class="thumb active" onclick="goToSlide(0)">
+                    <img src="https://i.imgur.com/9JzOVp2.jpeg" alt="Thumbnail 1">
+                </div>
+                <div class="thumb" onclick="goToSlide(1)">
+                    <img src="https://i.imgur.com/EnlsiOb.jpeg" alt="Thumbnail 2">
+                </div>
+                <div class="thumb" onclick="goToSlide(2)">
+                    <img src="https://i.imgur.com/EP0W8am.jpeg" alt="Thumbnail 3">
+                </div>
+                <div class="thumb" onclick="goToSlide(3)">
+                    <img src="https://i.imgur.com/PfQSQsB.jpeg" alt="Thumbnail 4">
+                </div>
+                <div class="thumb" onclick="goToSlide(4)">
+                    <img src="https://i.imgur.com/bJpm1dy.jpeg" alt="Thumbnail 5">
+                </div>
+                <div class="thumb" onclick="goToSlide(5)">
+                    <img src="https://i.imgur.com/UWrlqUz.jpeg" alt="Thumbnail 6">
+                </div>
+            </div>
+        </div>
+        
+        <div class="separator"></div>
+        <div class="section">
+            <h2>Description</h2>
+            <div class="section-content">
+                <p>
+                    This mod reads your BepInEx plugin configs and displays them in-game so you can edit settings without opening text files. It scans your <code>BepInEx/plugins</code> folder, finds which mods have config files, and creates a menu for each one.
+                </p>
+                <p>
+                    The settings integrate into the game's existing menu system. Depending on how each mod handles its config, changes either save immediately or when you close the menu.
+                </p>
+                
+                <h3 style="color: var(--primary-cyan); font-size: 1.2rem; margin-top: 2rem; margin-bottom: 1rem;">What It Does</h3>
+                <ul>
+                    <li>Automatically finds all installed plugins and their configs</li>
+                    <li>Shows plugin author, version, and GUID info</li>
+                    <li>Detects if multiple mods are trying to use the same keybind</li>
+                    <li>Includes a reset button to restore default settings for each config</li>
+                    <li>Some settings apply in real-time without needing to restart</li>
+                    <li>Allows binding gamepad buttons (see the note below)</li>
+                </ul>
+                
+                <h3 style="color: var(--primary-cyan); font-size: 1.2rem; margin-top: 2rem; margin-bottom: 1rem;">⚠️ Note on Gamepad Rebinding</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                    You can enable gamepad button rebinding by turning on <code>AllowForbiddenKeyRebind</code> in MCM's own config, but this is experimental and can cause problems. Better to wait for the dedicated Controls Rebind mod that handles this properly.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Installation Instructions -->
+        <div class="section">
+            <h2>Installation</h2>
+            <div class="section-content">
+                <p><strong>Requirements:</strong></p>
+                <ul>
+                    <li>BepInEx 5.x (x86) installed (see the <a href="../index.html#guide" style="color: var(--primary-cyan);">Guide</a>)</li>
+                    <li>Necropolis: Brutal Edition (Steam Version)</li>
+                </ul>
+                
+                <p><strong>Steps:</strong></p>
+                <ol>
+                    <li>Download the mod using the button below</li>
+                    <li>Extract the <code>ModConfigMenu.dll</code> file</li>
+                    <li>Place it in <code>BepInEx/plugins/</code> folder</li>
+                    <li>Launch Necropolis and the mod will load automatically</li>
+                    <li>Access mod configs through the in-game menu</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Usage Instructions -->
+        <div class="section">
+            <h2>How to Use</h2>
+            <div class="section-content">
+                <p>
+                    Once installed, open the game's main menu or in-game pause menu. You'll see a new "Mods" option that lists all installed plugins with config files.
+                </p>
+                <p>
+                    Select any mod from the list to view and edit its settings. Changes save automatically depending on how each mod handles configs. Use the reset button if you want to restore config defaults.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Download Button -->
+        <div class="download-container">
+            <a href="https://drive.proton.me/urls/A2SYR938S4#Bm4Rz3SKH7YD" class="download-btn" target="_blank">
+                <span class="download-text">Download Mod Config Menu</span>
+                <span class="download-filename">ModConfigMenu-v1.0.1.dll</span>
+            </a>
+        </div>
+        
+        <!-- Version History - Hidden for initial release -->
+        <div class="version-history" style="display: none;">
+            <button class="version-toggle" onclick="toggleVersionHistory()">
+                <span>Previous Versions (0)</span>
+                <span class="version-toggle-icon">▼</span>
+            </button>
+            
+            <div class="version-list" id="versionList">
+                <!-- No previous versions yet - this is the initial public release -->
+            </div>
+        </div>
+        
+        <!-- Footer Note -->
+        <div class="footer-note">
+            <h2>Having issues? Check the <a href="../index.html#faq" style="color: var(--primary-cyan);">FAQ</a> or join our <a href="https://discord.gg/2233yFQ" style="color: var(--primary-cyan);">Discord community</a> for support.</h2>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>
+            Necropolis Modding Hub © 2025 | Community-driven project | Game IP © Paradox Interactive<br>
+            Not affiliated with Harebrained Schemes or Paradox Interactive | Designed by <a href="https://github.com/KoMiKoZa" target="_blank">KoMiKoZa</a>
+        </p>
+    </footer>
+    
+    <!-- Carousel JavaScript -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const thumbs = document.querySelectorAll('.thumb');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            thumbs[currentSlide].classList.add('active');
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+        
+        function goToSlide(n) {
+            showSlide(n);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+        
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        
+        // Random color theme (matches game mechanic)
+        const themeColors = [
+            '#7FFFD4', // Cyan (default)
+            '#FF6B6B', // Light Red
+            '#87CEEB', // Light Blue
+            '#DDA0DD', // Light Purple
+            '#F0E68C', // Light Yellow
+            '#90EE90', // Light Green
+            '#E8E8E8', // Light Gray
+            '#FFB6C1'  // Light Pink
+        ];
+        const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+        
+        // Convert hex to RGB for rgba usage
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        const rgb = hexToRgb(randomColor);
+        const rgbString = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+        
+        // Set CSS custom properties
+        document.documentElement.style.setProperty('--primary-cyan', randomColor);
+        document.documentElement.style.setProperty('--primary-rgb', rgbString);
+
+        // Dynamic favicon based on color theme
+        const faviconUrls = {
+            '#7FFFD4': 'https://i.imgur.com/TNk3bFj.png',      // Cyan
+            '#FF6B6B': 'https://i.imgur.com/AokFtxY.png',       // Light Red
+            '#87CEEB': 'https://i.imgur.com/bwMR7E6.png',      // Light Blue
+            '#DDA0DD': 'https://i.imgur.com/DC4WWtl.png',    // Light Purple
+            '#F0E68C': 'https://i.imgur.com/qkrs6Mj.png',    // Light Yellow
+            '#90EE90': 'https://i.imgur.com/KqMSJHE.png',     // Light Green
+            '#E8E8E8': 'https://i.imgur.com/wH3kU7J.png',      // Light Gray
+            '#FFB6C1': 'https://i.imgur.com/9bHhcRu.png'       // Light Pink
+        };
+        
+        const favicon = document.querySelector("link[rel='icon']");
+        if (favicon && faviconUrls[randomColor]) {
+            favicon.href = faviconUrls[randomColor];
+        }
+        
+        // Version history accordion toggle
+        function toggleVersionHistory() {
+            const versionList = document.getElementById('versionList');
+            const toggleButton = document.querySelector('.version-toggle');
+            
+            versionList.classList.toggle('active');
+            toggleButton.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
