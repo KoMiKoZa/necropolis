@@ -1129,16 +1129,12 @@
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-item');
-        const thumbs = document.querySelectorAll('.thumb');
         
         function showSlide(n) {
+            const thumbs = document.querySelectorAll('.thumb');
+            
             slides.forEach(slide => slide.classList.remove('active'));
             thumbs.forEach(thumb => thumb.classList.remove('active'));
-            
-            currentSlide = (n + slides.length) % slides.length;
-            
-            slides[currentSlide].classList.add('active');
-            thumbs[currentSlide].classList.add('active');
         }
         
         function changeSlide(direction) {
