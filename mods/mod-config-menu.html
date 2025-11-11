@@ -822,6 +822,133 @@
             font-size: 2rem;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .lightbox.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 0 50px rgba(var(--primary-rgb), 0.3);
+            border: 2px solid rgba(var(--primary-rgb), 0.5);
+        }
+        
+        .lightbox-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: 2px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+        }
+        
+        .lightbox-close:hover {
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            transform: rotate(90deg);
+        }
+        
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--primary-cyan);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            font-size: 2.5rem;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .lightbox-nav:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.8);
+            transform: translateY(-50%) scale(1.2);
+        }
+        
+        .lightbox-nav.prev {
+            left: 2rem;
+        }
+        
+        .lightbox-nav.next {
+            right: 2rem;
+        }
+        
+        .carousel-item img {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .carousel-item img:hover {
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .lightbox-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .lightbox-nav {
+                font-size: 2rem;
+            }
+            
+            .lightbox-nav.prev {
+                left: 0.5rem;
+            }
+            
+            .lightbox-nav.next {
+                right: 0.5rem;
+            }
+            }
+        }
     </style>
 </head>
 <body>
@@ -842,6 +969,16 @@
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
     </nav>
+
+    <!-- Lightbox for full-screen image view -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <button class="lightbox-nav prev" onclick="lightboxNavigate(-1)">◀</button>
+        <button class="lightbox-nav next" onclick="lightboxNavigate(1)">▶</button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+        </div>
+    </div>
 
     <!-- Main Content -->
     <div class="container">
@@ -888,27 +1025,8 @@
                 <div class="carousel-nav next" onclick="changeSlide(1)">▶</div>
             </div>
             
-            <!-- Thumbnails -->
-            <div class="carousel-thumbs">
-                <div class="thumb active" onclick="goToSlide(0)">
-                    <img src="https://i.imgur.com/9JzOVp2.jpeg" alt="Thumbnail 1">
-                </div>
-                <div class="thumb" onclick="goToSlide(1)">
-                    <img src="https://i.imgur.com/EnlsiOb.jpeg" alt="Thumbnail 2">
-                </div>
-                <div class="thumb" onclick="goToSlide(2)">
-                    <img src="https://i.imgur.com/EP0W8am.jpeg" alt="Thumbnail 3">
-                </div>
-                <div class="thumb" onclick="goToSlide(3)">
-                    <img src="https://i.imgur.com/PfQSQsB.jpeg" alt="Thumbnail 4">
-                </div>
-                <div class="thumb" onclick="goToSlide(4)">
-                    <img src="https://i.imgur.com/bJpm1dy.jpeg" alt="Thumbnail 5">
-                </div>
-                <div class="thumb" onclick="goToSlide(5)">
-                    <img src="https://i.imgur.com/UWrlqUz.jpeg" alt="Thumbnail 6">
-                </div>
-            </div>
+            <!-- Thumbnails (auto-generated from carousel images) -->
+            <div class="carousel-thumbs"></div>
         </div>
         
         <div class="separator"></div>
@@ -1097,6 +1215,85 @@
             versionList.classList.toggle('active');
             toggleButton.classList.toggle('active');
         }
+        
+        // Lightbox functionality
+        let lightboxIndex = 0;
+        const imageSlides = Array.from(slides).filter(slide => slide.querySelector('img'));
+        
+        // Make carousel images clickable to open lightbox
+        imageSlides.forEach((slide, index) => {
+            const img = slide.querySelector('img');
+            if (img) {
+                img.addEventListener('click', () => openLightbox(index));
+            }
+        });
+        
+        function openLightbox(index) {
+            lightboxIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const img = imageSlides[lightboxIndex].querySelector('img');
+            
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightbox.classList.add('active');
+            
+            // Prevent body scroll when lightbox is open
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+        
+        function lightboxNavigate(direction) {
+            lightboxIndex = (lightboxIndex + direction + imageSlides.length) % imageSlides.length;
+            const lightboxImage = document.getElementById('lightboxImage');
+            const img = imageSlides[lightboxIndex].querySelector('img');
+            
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+        }
+        
+        // Close lightbox on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+        
+        // Close lightbox when clicking outside image
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+        
+        // Auto-generate thumbnails from carousel images
+        document.addEventListener('DOMContentLoaded', () => {
+            const thumbContainer = document.querySelector('.carousel-thumbs');
+            thumbContainer.innerHTML = ''; // Clear existing thumbnails
+            
+            imageSlides.forEach((slide, index) => {
+                const img = slide.querySelector('img');
+                if (img) {
+                    const thumb = document.createElement('div');
+                    thumb.className = 'thumb' + (index === 0 ? ' active' : '');
+                    thumb.onclick = () => goToSlide(index);
+                    
+                    const thumbImg = document.createElement('img');
+                    thumbImg.src = img.src;
+                    thumbImg.alt = `Thumbnail ${index + 1}`;
+                    
+                    thumb.appendChild(thumbImg);
+                    thumbContainer.appendChild(thumb);
+                }
+            });
+        });
     </script>
 </body>
 </html>
