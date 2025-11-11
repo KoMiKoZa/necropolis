@@ -1127,29 +1127,58 @@
     
     <!-- Carousel JavaScript -->
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-item');
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-item');
+    
+    function showSlide(n) {
+        const thumbs = document.querySelectorAll('.thumb');
         
-        function showSlide(n) {
-            const thumbs = document.querySelectorAll('.thumb');
-            
-            slides.forEach(slide => slide.classList.remove('active'));
-            thumbs.forEach(thumb => thumb.classList.remove('active'));
+        slides.forEach(slide => slide.classList.remove('active'));
+        thumbs.forEach(thumb => thumb.classList.remove('active'));
+        
+        currentSlide = (n + slides.length) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        if (thumbs[currentSlide]) {
+            thumbs[currentSlide].classList.add('active');
         }
+    }
+    
+    function changeSlide(direction) {
+        showSlide(currentSlide + direction);
+    }
+    
+    function goToSlide(n) {
+        showSlide(n);
+    }
+    
+    // Auto-generate thumbnails from carousel images
+    document.addEventListener('DOMContentLoaded', () => {
+        const thumbContainer = document.querySelector('.carousel-thumbs');
+        thumbContainer.innerHTML = '';
         
-        function changeSlide(direction) {
-            showSlide(currentSlide + direction);
-        }
-        
-        function goToSlide(n) {
-            showSlide(n);
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') changeSlide(-1);
-            if (e.key === 'ArrowRight') changeSlide(1);
+        slides.forEach((slide, index) => {
+            const img = slide.querySelector('img');
+            if (img) {
+                const thumb = document.createElement('div');
+                thumb.className = 'thumb' + (index === 0 ? ' active' : '');
+                thumb.onclick = () => goToSlide(index);
+                
+                const thumbImg = document.createElement('img');
+                thumbImg.src = img.src;
+                thumbImg.alt = `Thumbnail ${index + 1}`;
+                
+                thumb.appendChild(thumbImg);
+                thumbContainer.appendChild(thumb);
+            }
         });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
         
         // Mobile menu toggle
         function toggleMenu() {
