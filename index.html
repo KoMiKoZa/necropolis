@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Complete guide to Necropolis mods (2016). BepInEx installation, mod downloads, and community resources for the reborn roguelite.">
     <meta name="keywords" content="Necropolis mods, Necropolis modding, BepInEx, Abraxist, Brazen Head, Necropolis 2016, Necropolis Brutal Edition, Thunderstore, roguelite, roguelike, soulslike, Necropolis community, game modding guide, necropolis game">
     <meta name="author" content="Necropolis Community">
@@ -105,6 +105,11 @@
             box-sizing: border-box;
         }
         
+        html {
+            max-width: 100%;
+            overflow-x: clip;
+        }
+        
         :root {
             --primary-cyan: #7FFFD4;
             --dark-bg: #0a0a0a;
@@ -121,8 +126,8 @@
             color: var(--text-primary);
             line-height: 1.6;
             position: relative;
-            overflow-x: hidden;
-            max-width: 100vw;
+            max-width: 100%;
+            overflow-x: clip;
         }
         
         
@@ -478,8 +483,8 @@
 
         .mod-card:hover {
             border-color: var(--primary-cyan);
-            box-shadow: 0 5px 20px rgba(var(--primary-rgb), 0.2);
-            transform: translateY(-5px);
+            box-shadow: 0 3px 15px rgba(var(--primary-rgb), 0.2);
+            transform: translateY(-3px);
         }
         
         .mod-card-link {
@@ -524,11 +529,241 @@
             display: inline-block;
             padding: 0.3rem 0.8rem;        
             background: color-mix(in srgb, var(--primary-cyan) 10%, transparent);
+	    color: var(--primary-cyan);
             border-radius: 1px;
             font-size: 0.85rem;
             margin-right: 0.5rem;
             margin-top: 0.5rem;
         }        
+        
+        /* Carousel Styles */
+        .mod-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            margin-top: 2rem;
+            padding: 0.5rem 70px 2rem;
+        }
+
+        .mod-carousel-container {
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+        }
+
+        .mod-grid.carousel-mode {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 2rem;
+        }
+
+        .mod-grid.carousel-mode .mod-card-link {
+            flex: 0 0 auto;
+            display: flex;
+        }
+        
+        .mod-grid.carousel-mode .mod-card {
+            width: 100%;
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--primary-cyan);
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 100;
+            transition: opacity 0.3s ease;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .carousel-nav::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-prev::before {
+            border-width: 15px 20px 15px 0;
+            border-color: transparent var(--primary-cyan) transparent transparent;
+        }
+        
+        .carousel-next::before {
+            border-width: 15px 0 15px 20px;
+            border-color: transparent transparent transparent var(--primary-cyan);
+        }
+
+        .carousel-nav:hover::before {
+            filter: drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.8));
+        }
+        
+        .carousel-prev:hover::before {
+            border-right-color: var(--primary-cyan);
+        }
+        
+        .carousel-next:hover::before {
+            border-left-color: var(--primary-cyan);
+        }
+
+        .carousel-nav.active {
+            display: flex;
+        }
+
+        .carousel-prev {
+            left: 0;
+        }
+
+        .carousel-next {
+            right: 0;
+        }
+
+        /* Carousel Dots */
+        .carousel-dots {
+            display: none;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-dots.active {
+            display: flex;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-cyan);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        .carousel-dot:hover {
+            opacity: 0.8;
+            transform: scale(1.2);
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-cyan);
+            opacity: 1;
+            box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.6);
+        }
+
+        /* Mobile Responsiveness for Carousel */
+        @media (max-width: 1024px) {
+            .mod-grid.carousel-mode .mod-card-link {
+                flex: 0 0 auto;
+                display: flex;
+            }
+            
+            .carousel-prev {
+                left: -30px;
+            }
+            
+            .carousel-next {
+                right: -30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mod-grid.carousel-mode .mod-card-link {
+                flex: 0 0 auto;
+                display: flex;
+            }
+            
+            .carousel-nav {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .carousel-prev::before {
+                border-width: 12px 16px 12px 0;
+            }
+            
+            .carousel-next::before {
+                border-width: 12px 0 12px 16px;
+            }
+            
+            .carousel-prev {
+                left: 0;
+            }
+            
+            .carousel-next {
+                right: 0;
+            }
+            
+            .mod-carousel-wrapper {
+                padding: 0.5rem 55px 2rem;
+            }
+        }
+
+        /* Touch feedback */
+        .mod-carousel-container.dragging {
+            cursor: grabbing;
+        }
+
+        .mod-carousel-container.dragging .mod-card {
+            pointer-events: none;
+        }
+        
+        /* View All Button Styles */
+        .view-all-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .view-all-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: transparent;
+            border: 2px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+        }
+
+        .view-all-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-cyan);
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+
+        .view-all-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .view-all-button:hover::before {
+            left: 0;
+        }
+
+        .view-all-button:hover {
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
+        }
         
         /* FAQ */
         .faq-item {
@@ -831,18 +1066,17 @@
         /* Smooth scroll */
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
         }
         
         /* Link styling */
-        a:not(.cta-button):not(.community-link):not(.mod-card-link) {
+        a:not(.cta-button):not(.community-link):not(.mod-card-link):not(.view-all-button) {
             color: var(--primary-cyan);
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: border-color 0.3s ease;
         }
         
-        a:not(.cta-button):not(.community-link):not(.mod-card-link):hover {
+        a:not(.cta-button):not(.community-link):not(.mod-card-link):not(.view-all-button):hover {
             border-bottom-color: var(--primary-cyan);
         }
     </style>
@@ -974,36 +1208,49 @@
 
         <!-- Featured Mods -->
         <section id="mods">
-            <h2>Available Mods</h2>
-            <div class="mod-grid">
-                <a href="mods/mod-config-menu.html" class="mod-card-link">
-                    <div class="mod-card">
-                        <h3>Mod Config Menu</h3>
-                        <p>Essential UI framework for configuring mods in-game. Provides a clean interface for conveniently adjusting mod settings without manually editing config files.</p>
-                        <span class="mod-tag2"><b>v1.0.1</b></span>
-                        <span class="mod-tag">Core</span>
-						<span class="mod-tag">Config</span>
-						<span class="mod-tag">UI</span>
+            <h2>Featured Mods</h2>
+            <div class="mod-carousel-wrapper">
+                <button class="carousel-nav carousel-prev" aria-label="Previous"></button>
+                <div class="mod-carousel-container">
+                    <div class="mod-grid">
+                        <a href="mods/mod-config-menu.html" class="mod-card-link">
+                            <div class="mod-card">
+                                <h3>Mod Config Menu</h3>
+                                <p>Essential UI framework for configuring mods in-game. Provides a clean interface for conveniently adjusting mod settings without manually editing config files.</p>
+                                <span class="mod-tag2"><b>v1.0.1</b></span>
+                                <span class="mod-tag">Core</span>
+                                <span class="mod-tag">Config</span>
+                                <span class="mod-tag">UI</span>
+                            </div>
+                        </a>
+
+                        <a href="mods/csv-patcher.html" class="mod-card-link">
+                            <div class="mod-card">
+                                <h3>CSV Patcher</h3>
+                                <p>Framework for tweaking CSV files used by the game, which allows editing or adding new data entries.</p>
+                                <span class="mod-tag2">v1.0.0</span>                    
+                                <span class="mod-tag">Core</span>
+                                <span class="mod-tag">Data</span>
+                                <span class="mod-tag">Gameplay</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="mod-card-link">
+                            <div class="mod-card">
+                                <h3>Your Mod Here</h3>
+                                <p>Join the community and create your own mods! Documentation and support available on our community channels.</p>
+                                <span class="mod-tag">Coming Soon</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
-
-                <a href="mods/csv-patcher.html" class="mod-card-link">
-                <div class="mod-card">
-                    <h3>CSV Patcher</h3>
-                    <p>Framework for tweaking CSV files used by the game, which allows editing or adding new data entries. </p>
-                    <span class="mod-tag2">v1.0.0</span>                    
-                    <span class="mod-tag">Core</span>
-                    <span class="mod-tag">Data</span>
-                    <span class="mod-tag">Gameplay</span>
                 </div>
-                </a>
-
-                <a href="#" class="mod-card-link">
-                <div class="mod-card">
-                    <h3>Your Mod Here</h3>
-                    <p>Join the community and create your own mods! Documentation and support available on our community channels.</p>
-                    <span class="mod-tag">Coming Soon</span>
-                </div>
+                <button class="carousel-nav carousel-next" aria-label="Next"></button>
+            </div>
+            <div class="carousel-dots"></div>
+            
+            <div class="view-all-container">
+                <a href="mods.html" class="view-all-button">
+                    <span>View All Mods</span>
                 </a>
             </div>
         </section>
@@ -1217,8 +1464,191 @@
         function toggleMenu() {
             document.getElementById('navLinks').classList.toggle('active');
         }
+
+        // ===== CAROUSEL FUNCTIONALITY =====
+        class ModCarousel {
+            constructor() {
+                this.wrapper = document.querySelector('.mod-carousel-wrapper');
+                this.container = document.querySelector('.mod-carousel-container');
+                this.grid = document.querySelector('.mod-grid');
+                this.prevBtn = document.querySelector('.carousel-prev');
+                this.nextBtn = document.querySelector('.carousel-next');
+                this.dotsContainer = document.querySelector('.carousel-dots');
+                this.cards = Array.from(document.querySelectorAll('.mod-card-link'));
+                
+                this.currentPage = 0;
+                this.cardsToShow = this.getCardsToShow();
+                this.totalPages = Math.ceil(this.cards.length / this.cardsToShow);
+                
+                // Touch/drag support
+                this.isDragging = false;
+                this.startPos = 0;
+                this.currentTranslate = 0;
+                this.prevTranslate = 0;
+                
+                this.init();
+            }
+            
+            getCardsToShow() {
+                const width = window.innerWidth;
+                if (width <= 768) return 1;
+                if (width <= 1024) return 2;
+                return 3;
+            }
+            
+            init() {
+                // Only activate carousel if 4+ mods
+                if (this.cards.length < 4) return;
+                
+                this.grid.classList.add('carousel-mode');
+                this.prevBtn.classList.add('active');
+                this.nextBtn.classList.add('active');
+                this.dotsContainer.classList.add('active');
+                
+                this.createDots();
+                this.attachEvents();
+                this.updateCarousel();
+            }
+            
+            createDots() {
+                this.dotsContainer.innerHTML = '';
+                for (let i = 0; i < this.totalPages; i++) {
+                    const dot = document.createElement('span');
+                    dot.classList.add('carousel-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => this.goToPage(i));
+                    this.dotsContainer.appendChild(dot);
+                }
+            }
+            
+            attachEvents() {
+                this.prevBtn.addEventListener('click', () => this.prev());
+                this.nextBtn.addEventListener('click', () => this.next());
+                
+                // Touch events
+                this.container.addEventListener('touchstart', this.touchStart.bind(this), { passive: true });
+                this.container.addEventListener('touchmove', this.touchMove.bind(this), { passive: false });
+                this.container.addEventListener('touchend', this.touchEnd.bind(this));
+                
+                // Mouse drag
+                this.container.addEventListener('mousedown', this.touchStart.bind(this));
+                this.container.addEventListener('mousemove', this.touchMove.bind(this));
+                this.container.addEventListener('mouseup', this.touchEnd.bind(this));
+                this.container.addEventListener('mouseleave', this.touchEnd.bind(this));
+                
+                // Resize handler
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        const newCardsToShow = this.getCardsToShow();
+                        if (newCardsToShow !== this.cardsToShow) {
+                            this.cardsToShow = newCardsToShow;
+                            this.totalPages = Math.ceil(this.cards.length / this.cardsToShow);
+                            this.currentPage = Math.min(this.currentPage, this.totalPages - 1);
+                            this.createDots();
+                            this.updateCarousel();
+                        } else {
+                            this.updateCarousel();
+                        }
+                    }, 250);
+                });
+            }
+            
+            touchStart(e) {
+                this.isDragging = true;
+                this.startPos = this.getPositionX(e);
+                this.grid.style.transition = 'none';
+                this.container.classList.add('dragging');
+            }
+            
+            touchMove(e) {
+                if (!this.isDragging) return;
+                e.preventDefault();
+                const currentPosition = this.getPositionX(e);
+                this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+                this.grid.style.transform = `translateX(${this.currentTranslate}px)`;
+            }
+            
+            touchEnd() {
+                if (!this.isDragging) return;
+                this.isDragging = false;
+                
+                const movedBy = this.currentTranslate - this.prevTranslate;
+                
+                // Swipe threshold
+                if (movedBy < -100 && this.currentPage < this.totalPages - 1) {
+                    this.next();
+                } else if (movedBy > 100 && this.currentPage > 0) {
+                    this.prev();
+                } else {
+                    this.updateCarousel();
+                }
+                
+                this.container.classList.remove('dragging');
+            }
+            
+            getPositionX(e) {
+                return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            }
+            
+            prev() {
+                if (this.currentPage > 0) {
+                    this.currentPage--;
+                    this.updateCarousel();
+                }
+            }
+            
+            next() {
+                if (this.currentPage < this.totalPages - 1) {
+                    this.currentPage++;
+                    this.updateCarousel();
+                }
+            }
+            
+            goToPage(pageIndex) {
+                this.currentPage = pageIndex;
+                this.updateCarousel();
+            }
+            
+            updateCarousel() {
+                const containerWidth = this.container.offsetWidth;
+                const gap = 32; // 2rem
+                const cardWidth = (containerWidth - (gap * (this.cardsToShow - 1))) / this.cardsToShow;
+                
+                // Set explicit width for all cards
+                this.cards.forEach(card => {
+                    card.style.flexBasis = `${cardWidth}px`;
+                    card.style.minWidth = `${cardWidth}px`;
+                    card.style.maxWidth = `${cardWidth}px`;
+                });
+                
+                // Calculate offset
+                const offset = -(this.currentPage * this.cardsToShow * (cardWidth + gap));
+                
+                this.grid.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                this.grid.style.transform = `translateX(${offset}px)`;
+                this.currentTranslate = offset;
+                this.prevTranslate = offset;
+                
+                // Update dots
+                const dots = this.dotsContainer.querySelectorAll('.carousel-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentPage);
+                });
+                
+                // Show/hide navigation buttons
+                this.prevBtn.style.opacity = this.currentPage === 0 ? '0' : '1';
+                this.prevBtn.style.pointerEvents = this.currentPage === 0 ? 'none' : 'auto';
+                this.nextBtn.style.opacity = this.currentPage === this.totalPages - 1 ? '0' : '1';
+                this.nextBtn.style.pointerEvents = this.currentPage === this.totalPages - 1 ? 'none' : 'auto';
+            }
+        }
+
+        // Initialize carousel when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModCarousel();
+        });
     </script>
 </body>
 </html>
-
-
