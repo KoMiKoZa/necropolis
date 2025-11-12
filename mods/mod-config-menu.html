@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Download Mod Config Menu for Necropolis. Configure all your Necropolis mods in-game with seamless UI. No manual config editing. Essential BepInEx framework mod.">
     <meta name="keywords" content="Necropolis mods, Necropolis mod download, Mod Config Menu, BepInEx config, in-game settings, Necropolis modding, UI mod, mod configuration">
     <meta name="author" content="KoMiKoZa">
@@ -84,6 +84,12 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+            max-width: 100%;
+            overflow-x: clip;
+        }
+        
         :root {
             --primary-cyan: #7FFFD4;
             --dark-bg: #0a0a0a;
@@ -99,8 +105,8 @@
             background: var(--dark-bg);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
-            max-width: 100vw;
+            max-width: 100%;
+            overflow-x: clip;
         }
         
         body::before {
@@ -684,11 +690,6 @@
             h1 {
                 font-size: 2rem;
             }
-        }
-        
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
         }
         
         /* Media Carousel */
