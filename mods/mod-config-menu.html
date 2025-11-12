@@ -1,29 +1,35 @@
 <!DOCTYPE html>
+<!-- 
+    Welcome, adventurer. You've descended into the source code.
+    Unlike the Necropolis, you might actually survive this maze.
+    Find a bug? PRs welcome. Find a secret? Keep it to yourself.
+    - The Brazen Head
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Download Mod Config Menu for Necropolis (2016). Configure all your mods in-game with a seamless UI. No more editing config files manually.">
-    <meta name="keywords" content="Necropolis mods, Necropolis game, Mod Config Menu, BepInEx config, in-game settings, Necropolis modding, UI mod">
+    <meta name="description" content="Download Mod Config Menu for Necropolis. Configure all your Necropolis mods in-game with seamless UI. No manual config editing. Essential BepInEx framework mod.">
+    <meta name="keywords" content="Necropolis mods, Necropolis mod download, Mod Config Menu, BepInEx config, in-game settings, Necropolis modding, UI mod, mod configuration">
     <meta name="author" content="KoMiKoZa">
 
     <!-- Brazen Icon -->
     <link rel="icon" type="image/png" href="https://i.imgur.com/E2l79g1.png">
     
-    <title>Mod Config Menu by KoMiKoZa - Necropolis Modding Hub</title>
+    <title>Mod Config Menu - Essential Necropolis Mod by KoMiKoZa</title>
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Necropolis Modding Hub"/>
     <meta property="og:url" content="https://komikoza.github.io/necropolis/mods/mod-config-menu.html">
-    <meta property="og:title" content="Mod Config Menu - Necropolis Mod by KoMiKoZa">
-    <meta property="og:description" content="Configure all your Necropolis mods in-game with seamless UI integration. No more manual config file editing. Essential BepInEx framework.">
+    <meta property="og:title" content="Mod Config Menu - Essential Necropolis Mod">
+    <meta property="og:description" content="Configure all your Necropolis mods in-game. No more manual config file editing. Essential BepInEx framework for mod configuration.">
     <meta property="og:image" content="https://i.imgur.com/kKEs1Rn.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mod Config Menu - Necropolis Mod by KoMiKoZa">
-    <meta name="twitter:description" content="Configure all your Necropolis mods in-game with seamless UI integration. No more manual config file editing. Essential BepInEx framework.">
+    <meta name="twitter:title" content="Mod Config Menu - Essential Necropolis Mod">
+    <meta name="twitter:description" content="Configure all your Necropolis mods in-game. No more manual config file editing. Essential BepInEx framework.">
     <meta name="twitter:image" content="https://i.imgur.com/kKEs1Rn.png">
 
     <!-- Schema.org JSON-LD for Mod Page -->
@@ -33,7 +39,7 @@
         "@type": "SoftwareApplication",
         "name": "Mod Config Menu",
         "applicationCategory": "GameMod",
-        "description": "Essential UI framework for in-game mod configuration. Visualizes BepInEx config files and allows editing them directly within the game with seamless integration.",
+        "description": "Essential UI framework for configuring Necropolis mods in-game. Visualizes BepInEx config files and allows editing them directly within the game without manual file editing.",
         "author": {
             "@type": "Person",
             "name": "KoMiKoZa",
@@ -43,11 +49,11 @@
         "operatingSystem": "Windows",
         "applicationSubCategory": "UI Framework",
         "featureList": [
-            "In-game mod configuration interface",
+            "In-game configuration interface for all Necropolis mods",
             "Visualizes BepInEx config files",
-            "Edit settings without restarting game",
-            "Seamless UI integration",
-            "Framework for other mods"
+            "Edit mod settings without restarting game",
+            "Seamless UI integration with game menus",
+            "Framework for other mods to use"
         ],
         "offers": {
             "@type": "Offer",
@@ -67,9 +73,8 @@
                 "url": "https://komikoza.github.io/necropolis"
             }
         ],
-        "keywords": "Mod Config Menu, BepInEx config, in-game settings, UI framework, Necropolis mods"
+        "keywords": "Mod Config Menu, BepInEx config, in-game mod settings, UI framework, Necropolis mods, mod configuration"
     }
-    </script>
     </script>
     
     <style>
@@ -947,7 +952,6 @@
             .lightbox-nav.next {
                 right: 0.5rem;
             }
-            }
         }
     </style>
 </head>
@@ -1034,25 +1038,25 @@
             <h2>Description</h2>
             <div class="section-content">
                 <p>
-                    This mod reads your BepInEx plugin configs and displays them in-game so you can edit settings without opening text files. It scans your <code>BepInEx/plugins</code> folder, finds which mods have config files, and creates a menu for each one.
+                    This mod reads your BepInEx configs and shows them in-game. No more alt-tabbing to Notepad and pretending you enjoy manual config editing. It scans your <code>BepInEx/plugins</code> folder, finds which mods have config files, and builds a menu for each one.
                 </p>
                 <p>
-                    The settings integrate into the game's existing menu system. Depending on how each mod handles its config, changes either save immediately or when you close the menu.
+                    Settings integrate into the game's existing menu system. Depending on how each mod handles its config, changes either save immediately or when you close the menu. Most of the time.
                 </p>
                 
                 <h3 style="color: var(--primary-cyan); font-size: 1.2rem; margin-top: 2rem; margin-bottom: 1rem;">What It Does</h3>
                 <ul>
                     <li>Automatically finds all installed plugins and their configs</li>
                     <li>Shows plugin author, version, and GUID info</li>
-                    <li>Detects if multiple mods are trying to use the same keybind</li>
-                    <li>Includes a reset button to restore default settings for each config</li>
-                    <li>Some settings apply in real-time without needing to restart</li>
-                    <li>Allows binding gamepad buttons (see the note below)</li>
+                    <li>Detects if multiple mods are fighting over the same keybind</li>
+                    <li>Includes a reset button to restore defaults when you inevitably break something</li>
+                    <li>Some settings apply in real-time without needing to restart (depends on how the plugins implement this)</li>
+                    <li>Allows binding gamepad buttons (see the warning below)</li>
                 </ul>
                 
                 <h3 style="color: var(--primary-cyan); font-size: 1.2rem; margin-top: 2rem; margin-bottom: 1rem;">⚠️ Note on Gamepad Rebinding</h3>
                 <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                    You can enable gamepad button rebinding by turning on <code>AllowForbiddenKeyRebind</code> in MCM's own config, but this is experimental and can cause problems. Better to wait for the dedicated Controls Rebind mod that handles this properly.
+                    You can enable gamepad button rebinding by turning on <code>AllowForbiddenKeyRebind</code> in MCM's config, but this is experimental and might break things. Wait for the dedicated Controls Rebind mod instead. You've been warned.
                 </p>
             </div>
         </div>
@@ -1071,8 +1075,8 @@
                 <ol>
                     <li>Download the mod using the button below</li>
                     <li>Extract the <code>ModConfigMenu.dll</code> file</li>
-                    <li>Place it in <code>BepInEx/plugins/</code> folder</li>
-                    <li>Launch Necropolis and the mod will load automatically</li>
+                    <li>Drop it in <code>BepInEx/plugins/</code> folder</li>
+                    <li>Launch Necropolis - the mod loads automatically</li>
                     <li>Access mod configs through the in-game menu</li>
                 </ol>
             </div>
@@ -1083,10 +1087,10 @@
             <h2>How to Use</h2>
             <div class="section-content">
                 <p>
-                    Once installed, open the game's main menu or in-game pause menu. You'll see a new "Mods" option that lists all installed plugins with config files.
+                    Once installed, open the game's main menu or pause menu. You'll see a new "Mods" option listing all installed plugins with config files.
                 </p>
                 <p>
-                    Select any mod from the list to view and edit its settings. Changes save automatically depending on how each mod handles configs. Use the reset button if you want to restore config defaults.
+                    Select any mod to view and edit its settings. Changes save automatically. Probably. Use the reset button when things go sideways.
                 </p>
             </div>
         </div>
@@ -1130,8 +1134,13 @@
     let currentSlide = 0;
     const slides = document.querySelectorAll('.carousel-item');
     
+    // Touch gesture variables
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
     function showSlide(n) {
         const thumbs = document.querySelectorAll('.thumb');
+        const thumbContainer = document.querySelector('.carousel-thumbs');
         
         slides.forEach(slide => slide.classList.remove('active'));
         thumbs.forEach(thumb => thumb.classList.remove('active'));
@@ -1141,6 +1150,19 @@
         slides[currentSlide].classList.add('active');
         if (thumbs[currentSlide]) {
             thumbs[currentSlide].classList.add('active');
+            
+            // Auto-scroll thumbnail container to show active thumb
+            const activeThumb = thumbs[currentSlide];
+            const containerWidth = thumbContainer.offsetWidth;
+            const thumbLeft = activeThumb.offsetLeft;
+            const thumbWidth = activeThumb.offsetWidth;
+            
+            // Center the active thumbnail in view
+            const scrollPosition = thumbLeft - (containerWidth / 2) + (thumbWidth / 2);
+            thumbContainer.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
         }
     }
     
@@ -1150,6 +1172,33 @@
     
     function goToSlide(n) {
         showSlide(n);
+    }
+    
+    // Touch swipe handling for main carousel
+    const carouselMain = document.querySelector('.carousel-main');
+    
+    carouselMain.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    carouselMain.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50; // Minimum distance for swipe
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swiped left - go to next slide
+                changeSlide(1);
+            } else {
+                // Swiped right - go to previous slide
+                changeSlide(-1);
+            }
+        }
     }
     
     // Auto-generate thumbnails from carousel images
@@ -1172,6 +1221,9 @@
                 thumbContainer.appendChild(thumb);
             }
         });
+        
+        // Initial scroll to active thumbnail
+        showSlide(0);
     });
     
     // Keyboard navigation
@@ -1296,28 +1348,6 @@
             if (e.target.id === 'lightbox') {
                 closeLightbox();
             }
-        });
-        
-        // Auto-generate thumbnails from carousel images
-        document.addEventListener('DOMContentLoaded', () => {
-            const thumbContainer = document.querySelector('.carousel-thumbs');
-            thumbContainer.innerHTML = ''; // Clear existing thumbnails
-            
-            imageSlides.forEach((slide, index) => {
-                const img = slide.querySelector('img');
-                if (img) {
-                    const thumb = document.createElement('div');
-                    thumb.className = 'thumb' + (index === 0 ? ' active' : '');
-                    thumb.onclick = () => goToSlide(index);
-                    
-                    const thumbImg = document.createElement('img');
-                    thumbImg.src = img.src;
-                    thumbImg.alt = `Thumbnail ${index + 1}`;
-                    
-                    thumb.appendChild(thumbImg);
-                    thumbContainer.appendChild(thumb);
-                }
-            });
         });
     </script>
 </body>
