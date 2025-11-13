@@ -546,6 +546,16 @@
             padding: 0.5rem 70px 2rem;
         }
 
+		@media (max-width: 768px) {
+	    .mod-carousel-wrapper {
+	        padding: 0.5rem 1rem 2rem;
+	    }
+    
+	    .mod-carousel-wrapper:has(.carousel-nav.active) {
+	        padding: 0.5rem 55px 2rem;
+		    }
+		}
+
         .mod-carousel-container {
             overflow: hidden;
             width: 100%;
@@ -1654,4 +1664,5 @@
     </script>
 </body>
 </html>
+
 
