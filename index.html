@@ -546,16 +546,6 @@
             padding: 0.5rem 70px 2rem;
         }
 
-		@media (max-width: 768px) {
-	    .mod-carousel-wrapper {
-	        padding: 0.5rem 1rem 2rem;
-	    }
-    
-	    .mod-carousel-wrapper:has(.carousel-nav.active) {
-	        padding: 0.5rem 55px 2rem;
-		    }
-		}
-
         .mod-carousel-container {
             overflow: hidden;
             width: 100%;
@@ -689,9 +679,39 @@
         }
 
         @media (max-width: 768px) {
+            .mod-carousel-wrapper {
+                padding: 0.5rem 1rem 2rem;
+            }
+            
+            /* When carousel is active on mobile, add padding for arrows */
+            .mod-grid.carousel-mode {
+                padding: 0 50px;
+            }
+            
             .mod-grid.carousel-mode .mod-card-link {
                 flex: 0 0 auto;
                 display: flex;
+            }
+            
+            /* Make cards more compact on mobile */
+            .mod-card {
+                min-height: 220px;
+                padding: 1.5rem;
+            }
+            
+            .mod-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .mod-card p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                display: -webkit-box;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             .carousel-nav {
@@ -713,10 +733,6 @@
             
             .carousel-next {
                 right: 0;
-            }
-            
-            .mod-carousel-wrapper {
-                padding: 0.5rem 55px 2rem;
             }
         }
 
@@ -1509,8 +1525,9 @@
             }
             
             init() {
-                // Only activate carousel if 4+ mods
-                if (this.cards.length < 4) return;
+                // Activate carousel at different thresholds based on viewport
+                const minCards = window.innerWidth <= 768 ? 2 : 4;
+                if (this.cards.length < minCards) return;
                 
                 this.grid.classList.add('carousel-mode');
                 this.prevBtn.classList.add('active');
@@ -1554,6 +1571,18 @@
                     clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(() => {
                         const newCardsToShow = this.getCardsToShow();
+                        const newMinCards = window.innerWidth <= 768 ? 2 : 4;
+                        
+                        // Re-evaluate if carousel should be active
+                        if (this.cards.length < newMinCards) {
+                            // Deactivate carousel
+                            this.grid.classList.remove('carousel-mode');
+                            this.prevBtn.classList.remove('active');
+                            this.nextBtn.classList.remove('active');
+                            this.dotsContainer.classList.remove('active');
+                            return;
+                        }
+                        
                         if (newCardsToShow !== this.cardsToShow) {
                             this.cardsToShow = newCardsToShow;
                             this.totalPages = Math.ceil(this.cards.length / this.cardsToShow);
@@ -1664,5 +1693,3 @@
     </script>
 </body>
 </html>
-
-
