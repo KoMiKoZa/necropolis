@@ -1,0 +1,11 @@
+# Necropolis Modding Hub
+# https://komikoza.github.io/necropolis/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://komikoza.github.io/necropolis/sitemap.xml
+
+# Crawl-delay suggestion (optional, respected by some bots)
+Crawl-delay: 1
