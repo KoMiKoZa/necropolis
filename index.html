@@ -14,7 +14,10 @@
     <meta name="author" content="Necropolis Community">
 
     <!-- Brazen Icon -->
-	<link rel="icon" type="image/png" href="https://i.imgur.com/E2l79g1.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/E2l79g1.png">
+
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="css/styles.css">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
@@ -98,90 +101,8 @@
     }
     </script>
     
+    <!-- Page-Specific Styles -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            max-width: 100%;
-            overflow-x: clip;
-        }
-        
-        :root {
-            --primary-cyan: #7FFFD4;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --card-bg: #1a1a1a;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --accent-red: #8B2635;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            position: relative;
-            max-width: 100%;
-            overflow-x: clip;
-        }
-        
-        
-        /* Animated geometric background overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(127, 255, 212, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(139, 38, 53, 0.03) 0%, transparent 50%);
-            z-index: -1;
-            animation: pulse 15s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Typography */
-        h1, h2, h3 {
-            font-weight: 300;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-        
-        h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            color: var(--primary-cyan);
-            text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
-        }
-        
-        h2 {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: var(--primary-cyan);
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-cyan), transparent);
-        }
-        
         /* Header/Hero */
         header {
             min-height: 100vh;
@@ -474,70 +395,6 @@
             grid-auto-rows: 1fr;
         }
         
-        .mod-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 4px;
-            border: 1px solid transparent;
-            transition: all 0.5s ease;
-            height: 100%;
-        }
-
-        .mod-card:hover {
-            border-color: var(--primary-cyan);
-            box-shadow: 0 3px 15px rgba(var(--primary-rgb), 0.2);
-            transform: translateY(-3px);
-        }
-        
-        .mod-card-link {
-            text-decoration: none;
-            display: block;
-            color: inherit;
-            height: 100%;
-        }
-        
-        .mod-card-link:hover {
-            color: inherit;
-        }
-
-        .mod-card h3 {
-            color: var(--primary-cyan);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .mod-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .mod-card code {
-            background: var(--darker-bg);
-            color: var(--primary-cyan);
-        }
-        
-        .mod-tag {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: color-mix(in srgb, var(--primary-cyan) 10%, transparent);
-            color: var(--primary-cyan);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        .mod-tag2 {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;        
-            background: color-mix(in srgb, var(--primary-cyan) 10%, transparent);
-	    color: var(--primary-cyan);
-            border-radius: 1px;
-            font-size: 0.85rem;
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-        }        
-        
         /* Carousel Styles */
         .mod-carousel-wrapper {
             position: relative;
@@ -738,371 +595,30 @@
             pointer-events: none;
         }
         
-        /* View All Button Styles */
+        /* View All Button Container */
         .view-all-container {
             display: flex;
             justify-content: center;
             margin-top: 3rem;
         }
 
-        .view-all-button {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background: transparent;
-            border: 2px solid var(--primary-cyan);
-            color: var(--primary-cyan);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-            font-weight: 500;
-        }
-
-        .view-all-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-cyan);
-            transition: left 0.3s ease;
-            z-index: 0;
-        }
-
-        .view-all-button span {
-            position: relative;
-            z-index: 1;
-        }
-
-        .view-all-button:hover::before {
-            left: 0;
-        }
-
-        .view-all-button:hover {
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
-        }
-        
-        /* FAQ */
-        .faq-item {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-            border-left: 3px solid var(--primary-cyan);
-        }
-        
-        .faq-item h3 {
-            color: var(--primary-cyan);
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-        }
-        
-        .faq-item p {
-            color: var(--text-secondary);
-        }
-        
-        .faq-item code {
-            background: var(--darker-bg);
-            color: var(--primary-cyan);
-            padding: 0.3rem 0.6rem;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-        
-        /* Community Links */
-        .community-links {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        
-        .community-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--card-bg);
-            color: var(--primary-cyan);
-            text-decoration: none;
-            border: 2px solid var(--primary-cyan);
-            border-radius: 4px;
-            transition: all 0.5s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-        
-        .community-link:hover {
-            background: var(--primary-cyan);
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4);
-        }
-        
-        .mod-repo-disabled {
-            background: var(--accent-red);
-            border-color: var(--accent-red);
-            color: var(--text-primary);
-            cursor: not-allowed;
-            position: relative;
-        }
-        
-        .mod-repo-disabled:hover {
-            background: var(--accent-red);
-            color: var(--text-primary);
-            box-shadow: 0 0 20px rgba(139, 38, 53, 0.6);
-        }
-        
-        .mod-repo-disabled::after {
-            content: attr(title);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--card-bg);
-            color: var(--primary-cyan);
-            padding: 0.8rem 1.2rem;
-            border-radius: 4px;
-            border: 1px solid var(--primary-cyan);
-            white-space: nowrap;
-            font-size: 0.9rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .mod-repo-disabled:hover::after {
-            opacity: 1;
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--darker-bg);
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(127, 255, 212, 0.1);
-        }
-        
-        footer p {
-            color: var(--primary-cyan);
-            font-size: 0.9rem;
-        }
-        
-        .footer-link {
-            color: var(--primary-cyan);
-            text-decoration: none;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--primary-cyan);
-            transition: width 0.3s ease;
-        }
-        
-        .footer-link:hover::after {
-            width: 100%;
-        }
-        
-        /* Responsive adjustments */
+        /* Responsive adjustments for steps */
         @media (max-width: 768px) {
             .step::before {
                 position: static;
                 margin-bottom: 1rem;
             }
-            
+
             .step {
                 padding-left: 1.5rem;
             }
-            
-            h2::after {
-                width: 50%;
-            }
-        }
-        
-        /* Sticky Navigation */
-        nav {
-            background: rgba(5, 5, 5, 0.5);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(var(--primary-rgb), 0.3);
-            position: sticky;
-            top: 0;
-            width: 100%;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            --webkit-backdrop-filter: blur(5px);
-        }
-        
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-        
-        .nav-logo {
-            position: absolute;
-            left: 0;
-            top: 60%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            user-select: none;
-            width: 50px;
-            height: 50px;
-        }
-        
-        .nav-logo-icon {
-            width: 100%;
-            height: 100%;
-            background-color: var(--primary-cyan);
-            mask-image: url('https://i.imgur.com/aGQGNWt.png');
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-image: url('https://i.imgur.com/aGQGNWt.png');
-            -webkit-mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-        }
-        
-        .nav-brand {
-            color: var(--primary-cyan);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.5s ease;
-            margin-left: 60px;
-            text-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.85rem;
-            transition: all 0.5s ease;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-cyan);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary-cyan);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: 2px solid var(--primary-cyan);
-            color: var(--primary-cyan);
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.5s ease;
-        }
-        
-        .menu-toggle:hover {
-            background: rgba(127, 255, 212, 0.1);
-        }
-        
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem 0;
-                width: 100%;
-            }
-            
-            .nav-content {
-                padding: 0 1rem;
-            }
-            
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--darker-bg);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem 0;
-                border-bottom: 1px solid rgba(127, 255, 212, 0.2);
-                display: none;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-link {
-                width: 100%;
-                padding: 1rem 2rem;
-                text-align: center;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-        }
-        
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Link styling */
-        a:not(.cta-button):not(.community-link):not(.mod-card-link):not(.view-all-button) {
-            color: var(--primary-cyan);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease;
-        }
-        
-        a:not(.cta-button):not(.community-link):not(.mod-card-link):not(.view-all-button):hover {
-            border-bottom-color: var(--primary-cyan);
         }
     </style>
 </head>
 <body>
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#guide" class="skip-link">Skip to main content</a>
+
     <!-- Sticky Navigation -->
     <nav>
         <div class="nav-content">
@@ -1125,11 +641,11 @@
     <header>
         <!-- Background Image Carousel -->
         <div class="bg-carousel">
-            <img src="https://i.imgur.com/EkUSlMg.jpeg" alt="">
-            <img src="https://i.imgur.com/GWPbG5O.jpeg" alt="">
-            <img src="https://i.imgur.com/uiupb4w.jpeg" alt="">
-            <img src="https://i.imgur.com/SiRDnia.jpeg" alt="">
-            <img src="https://i.imgur.com/K8QR09g.jpeg" alt="">
+            <img src="https://i.imgur.com/EkUSlMg.jpeg" alt="Necropolis dungeon environment with glowing runes" loading="lazy">
+            <img src="https://i.imgur.com/GWPbG5O.jpeg" alt="Necropolis combat scene with skeletal enemies" loading="lazy">
+            <img src="https://i.imgur.com/uiupb4w.jpeg" alt="Necropolis character exploring dark corridors" loading="lazy">
+            <img src="https://i.imgur.com/SiRDnia.jpeg" alt="Necropolis multiplayer co-op gameplay" loading="lazy">
+            <img src="https://i.imgur.com/K8QR09g.jpeg" alt="Necropolis boss encounter in underground chamber" loading="lazy">
         </div>
         
         <div class="logo-container">
@@ -1339,87 +855,27 @@
         </p>
     </footer>
 
-    <!-- Simple scroll reveal animation -->
-    <script>
-        // Random color theme (matches game mechanic)
-        const themeColors = [
-            '#7FFFD4', // Cyan (default)
-            '#FF6B6B', // Light Red
-            '#87CEEB', // Light Blue
-            '#DDA0DD', // Light Purple
-            '#F0E68C', // Light Yellow
-            '#90EE90', // Light Green
-            '#E8E8E8', // Light Gray
-            '#FFB6C1'  // Light Pink
-        ];
-        const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
-        
-        // Convert hex to RGB for rgba usage
-        function hexToRgb(hex) {
-            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
-        }
-        
-        const rgb = hexToRgb(randomColor);
-        const rgbString = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
-        
-        // Set CSS custom properties
-        document.documentElement.style.setProperty('--primary-cyan', randomColor);
-        document.documentElement.style.setProperty('--primary-rgb', rgbString);
+    <!-- Shared JavaScript -->
+    <script src="js/main.js"></script>
 
-        // Dynamic favicon based on color theme
-        const faviconUrls = {
-            '#7FFFD4': 'https://i.imgur.com/TNk3bFj.png',      // Cyan
-            '#FF6B6B': 'https://i.imgur.com/AokFtxY.png',       // Light Red
-            '#87CEEB': 'https://i.imgur.com/bwMR7E6.png',      // Light Blue
-            '#DDA0DD': 'https://i.imgur.com/DC4WWtl.png',    // Light Purple
-            '#F0E68C': 'https://i.imgur.com/qkrs6Mj.png',    // Light Yellow
-            '#90EE90': 'https://i.imgur.com/KqMSJHE.png',     // Light Green
-            '#E8E8E8': 'https://i.imgur.com/wH3kU7J.png',      // Light Gray
-            '#FFB6C1': 'https://i.imgur.com/9bHhcRu.png'       // Light Pink
-        };
-        
-        const favicon = document.querySelector("link[rel='icon']");
-        if (favicon && faviconUrls[randomColor]) {
-            favicon.href = faviconUrls[randomColor];
-        }
+    <!-- Page-Specific JavaScript -->
+    <script>
+        // Get current theme color from main.js
+        const currentColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-cyan').trim();
 
         // Inject CSS for step triangles with dynamic color
         const styleSheet = document.createElement('style');
         styleSheet.textContent = `
-            .step:nth-child(1)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">1</text></svg>'); }
-            .step:nth-child(2)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">2</text></svg>'); }
-            .step:nth-child(3)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">3</text></svg>'); }
-            .step:nth-child(4)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">4</text></svg>'); }
-            .step:nth-child(5)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${randomColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${randomColor.replace('#', '%23')}">5</text></svg>'); }
+            .step:nth-child(1)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">1</text></svg>'); }
+            .step:nth-child(2)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">2</text></svg>'); }
+            .step:nth-child(3)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">3</text></svg>'); }
+            .step:nth-child(4)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">4</text></svg>'); }
+            .step:nth-child(5)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">5</text></svg>'); }
         `;
         document.head.appendChild(styleSheet);
 
-        // Smooth scroll reveal
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.step, .mod-card, .faq-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+        // Initialize scroll reveal
+        NecroHub.initScrollReveal('.step, .mod-card, .faq-item');
 
         // Pause carousel animations when hero section is not visible
         const heroObserver = new IntersectionObserver((entries) => {
@@ -1476,15 +932,6 @@
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // Add year to footer
-        document.querySelector('footer p').innerHTML = 
-            document.querySelector('footer p').innerHTML.replace('2025', new Date().getFullYear());
-        
-        // Mobile menu toggle
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
 
         // ===== CAROUSEL FUNCTIONALITY =====
         class ModCarousel {
@@ -1686,6 +1133,3 @@
     </script>
 </body>
 </html>
-
-
-
