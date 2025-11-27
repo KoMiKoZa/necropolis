@@ -127,19 +127,36 @@ function initScrollReveal(selectors = '.step, .mod-card, .faq-item') {
 // Initialize Common Features
 // ========================================
 
-/**
- * Initialize all common features on page load
- */
-function initCommon() {
-    applyRandomTheme();
+// Apply theme IMMEDIATELY (before page-specific scripts run)
+const currentThemeColor = (function() {
+    const randomColor = themeColors[Math.floor(Math.random() * themeColors.length)];
+    const rgb = hexToRgb(randomColor);
+    const rgbString = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+
+    // Set CSS custom properties immediately
+    document.documentElement.style.setProperty('--primary-cyan', randomColor);
+    document.documentElement.style.setProperty('--primary-rgb', rgbString);
+
+    return randomColor;
+})();
+
+// DOM-dependent initialization (favicon, footer year)
+function initDomFeatures() {
+    // Update favicon
+    const favicon = document.querySelector("link[rel='icon']");
+    if (favicon && faviconUrls[currentThemeColor]) {
+        favicon.href = faviconUrls[currentThemeColor];
+    }
+
+    // Update footer year
     updateFooterYear();
 }
 
-// Run on DOM ready
+// Run DOM features when ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCommon);
+    document.addEventListener('DOMContentLoaded', initDomFeatures);
 } else {
-    initCommon();
+    initDomFeatures();
 }
 
 // Export for use in page-specific scripts
@@ -147,6 +164,7 @@ window.NecroHub = {
     themeColors,
     faviconUrls,
     hexToRgb,
+    currentThemeColor,
     applyRandomTheme,
     toggleMenu,
     updateFooterYear,
