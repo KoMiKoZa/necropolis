@@ -684,8 +684,8 @@
     <div class="container">
         <!-- Status Banner -->
         <div class="status-banner">
-            <h2>⚡ Necropolis Thunderstore Page Is Here!</h2>
-            <h3>This pretty much means you can skip this entire site and go straight to the <a href="https://thunderstore.io/c/necropolis/" target="_blank">TS mod page</a>. Thunderstore is a well-known solutuion to modding together with mod managers created for it.</h3>
+            <h2>⚡ Thunderstore Migration Pending</h2>
+            <h3>Thunderstore mod page? Pending as of this moment. Mod managers? Not yet. Manual BepInEx installation? Good choice. See below.</h3>
         </div>
 
         <!-- Installation Guide -->
@@ -765,7 +765,7 @@
                             <div class="mod-card">
                                 <h3>CSV Patcher</h3>
                                 <p>Framework for tweaking CSV files used by the game, which allows editing or adding new data entries.</p>
-                                <span class="mod-tag2">v1.0.1</span>                    
+                                <span class="mod-tag2">v1.0.0</span>                    
                                 <span class="mod-tag">Core</span>
                                 <span class="mod-tag">Data</span>
                                 <span class="mod-tag">Gameplay</span>
@@ -797,9 +797,9 @@
             <h2>Frequently Asked Questions</h2>
 
             <div class="faq-item">
-                <h3>How difficult is Necropolis modding?</h3>
+                <h3>Is modding Necropolis safe?</h3>
                 <p>
-                    Easier than ever now with BiE & Thunderstore, both for mod-makers and mod-users. BepInEx (BiE) is open-source and trusted by thousands. Thunderstore is also a well-established mod platform, and mod managers make everything quite simple and smooth. 
+                    Safer than the actual game. BepInEx is open-source and trusted by thousands. Download from reputable sources, and you'll be fine. Unlike your character in the Necropolis.
                 </p>
             </div>
 
@@ -840,7 +840,7 @@
             </p>
             <div class="community-links">
                 <a href="https://discord.gg/2233yFQ" class="community-link">Discord Server</a>
-                <a href="https://thunderstore.io/c/necropolis/" class="community-link">Thunderstore Mods Page</a>
+                <a href="#" class="community-link mod-repo-disabled" title="Thunderstore mod page is being set up - coming soon!">Mod Repository</a>
                 <a href="https://store.steampowered.com/app/384490/NECROPOLIS_BRUTAL_EDITION/" class="community-link" target="_blank">Steam Page</a>
                 <a href="https://necropolis.fandom.com/wiki/Necropolis_Wiki" class="community-link" target="_blank">Necropolis Wiki</a>
             </div>
@@ -855,23 +855,24 @@
         </p>
     </footer>
 
-		<!-- Page-Specific JavaScript -->
-		<script>
-	    // Defer step triangle injection until after main.js applies theme
-	    setTimeout(function() {
-	        const currentColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-cyan').trim();
-	
-	        // Inject CSS for step triangles with dynamic color
-	        const styleSheet = document.createElement('style');
-	        styleSheet.textContent = `
-	            .step:nth-child(1)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">1</text></svg>'); }
-	            .step:nth-child(2)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">2</text></svg>'); }
-	            .step:nth-child(3)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">3</text></svg>'); }
-	            .step:nth-child(4)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">4</text></svg>'); }
-	            .step:nth-child(5)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">5</text></svg>'); }
-	        `;
-	        document.head.appendChild(styleSheet);
-	    }, 0);
+    <!-- Shared JavaScript -->
+    <script src="js/main.js"></script>
+
+    <!-- Page-Specific JavaScript -->
+    <script>
+        // Use the color that main.js already applied
+        const currentColor = NecroHub.currentThemeColor;
+
+        // Inject CSS for step triangles with dynamic color
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            .step:nth-child(1)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">1</text></svg>'); }
+            .step:nth-child(2)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">2</text></svg>'); }
+            .step:nth-child(3)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">3</text></svg>'); }
+            .step:nth-child(4)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">4</text></svg>'); }
+            .step:nth-child(5)::before { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="${currentColor.replace('#', '%23')}" stroke-width="3"/><text x="50" y="70" text-anchor="middle" font-size="45" font-weight="bold" fill="${currentColor.replace('#', '%23')}">5</text></svg>'); }
+        `;
+        document.head.appendChild(styleSheet);
 
         // Initialize scroll reveal
         NecroHub.initScrollReveal('.step, .mod-card, .faq-item');
@@ -925,11 +926,22 @@
 
         // Listen for scroll events
         window.addEventListener('scroll', updateActiveNav);
-        
+
+        // Run once on load to set initial state
+        updateActiveNav();
+
         // Handle home link click to scroll to top
         document.querySelector('[data-section="home"]').addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Update active nav after clicking any nav link (for smooth scroll)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Update after smooth scroll completes
+                setTimeout(updateActiveNav, 400);
+            });
         });
 
         // ===== CAROUSEL FUNCTIONALITY =====
@@ -1132,4 +1144,3 @@
     </script>
 </body>
 </html>
-
