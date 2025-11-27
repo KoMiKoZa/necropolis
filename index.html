@@ -697,10 +697,10 @@
 
             <div class="steps">
                 <div class="step">
-                    <h3>Download BepInEx 5 (x86)</h3>
+                    <h3>Download BepInExPack Necropolis</h3>
                     <p>
-                        Head to the <a href="https://github.com/BepInEx/BepInEx/releases" target="_blank">BepInEx GitHub releases page</a> 
-                        and download <code>the latest x86 version of BepInEx 5 (not 6)</code>. Necropolis is 32-bit, which means you need the x86 version of BiE, don't grab x64 - it won't work.
+                        Head to the <a href="https://thunderstore.io/c/necropolis/p/BepInEx/BepInExPack_Necropolis/" target="_blank">Necropolis BiE Pack on Thunderstore</a> 
+                        and download it.
                     </p>
                 </div>
 
@@ -720,22 +720,11 @@
                         You should now have a <code>BepInEx</code> folder and <code>winhttp.dll</code> alongside <code>Necropolis.exe</code>.
                     </p>
                 </div>
-
-                <div class="step">
-                    <h3>First Launch & Black Screen Fix</h3>
-                    <p>
-                        Launch Necropolis. You'll get a black screen - this is normal. Close the game. Navigate to <code>BepInEx/config/BepInEx.cfg</code> and find the line:<br>
-                        <code>[Preloader.Entrypoint]<br>Type = Application</code><br><br>
-                        Change it to:<br>
-                        <code>[Preloader.Entrypoint]<br>Type = MonoBehaviour</code><br><br>
-                        Save and launch again. BepInEx should now work properly.
-                    </p>
-                </div>
-
+				
                 <div class="step">
                     <h3>Install Mods</h3>
                     <p>
-                        Download Necropolis mods and place their <code>.dll</code> files into <code>BepInEx/plugins/</code>. 
+                        Download Necropolis mods from <a href="https://thunderstore.io/c/necropolis/" target="_blank">Thunderstore</a> and place their <code>.dll</code> files into <code>BepInEx/plugins/</code>. 
                         Some mods may have additional files or folders - follow the mod author's instructions. 
                         Launch the game and your mods should load automatically.
                     </p>
@@ -754,10 +743,9 @@
                             <div class="mod-card">
                                 <h3>Mod Config Menu</h3>
                                 <p>Essential UI framework for configuring mods in-game. Provides a clean interface for conveniently adjusting mod settings without manually editing config files.</p>
-                                <span class="mod-tag2"><b>v1.0.1</b></span>
+                                <span class="mod-tag2"><b>v1.0.2</b></span>
                                 <span class="mod-tag">Core</span>
                                 <span class="mod-tag">Config</span>
-                                <span class="mod-tag">UI</span>
                             </div>
                         </a>
 
@@ -765,10 +753,8 @@
                             <div class="mod-card">
                                 <h3>CSV Patcher</h3>
                                 <p>Framework for tweaking CSV files used by the game, which allows editing or adding new data entries.</p>
-                                <span class="mod-tag2">v1.0.0</span>                    
+                                <span class="mod-tag2">v1.0.1</span>                    
                                 <span class="mod-tag">Core</span>
-                                <span class="mod-tag">Data</span>
-                                <span class="mod-tag">Gameplay</span>
                             </div>
                         </a>
 
@@ -797,9 +783,16 @@
             <h2>Frequently Asked Questions</h2>
 
             <div class="faq-item">
-                <h3>Is modding Necropolis safe?</h3>
+                <h3>How difficult is Necropolis modding?</h3>
                 <p>
-                    Safer than the actual game. BepInEx is open-source and trusted by thousands. Download from reputable sources, and you'll be fine. Unlike your character in the Necropolis.
+                    Easier than ever now with BiE & Thunderstore, both for mod-makers and mod-users. BepInEx (BiE) is open-source and trusted by thousands. Thunderstore is also a well-established mod platform, and mod managers make everything quite simple and smooth.
+                </p>
+            </div>
+			
+            <div class="faq-item">
+                <h3>What is the advantage of Thunderstore over manual BepInEx installation?</h3>
+                <p>
+                    Basically Automatic vs Manual. Mod managers is the biggest advantage because they automate 90% of mod handling. Thunderstore is a battle-tested modding ecosystem that is actively maintained.
                 </p>
             </div>
 
@@ -821,13 +814,6 @@
                 <h3>Who owns Necropolis?</h3>
                 <p>
                     Paradox Interactive owns the IP. Harebrained Schemes made it. We're just the community refusing to let it die. No official affiliation. Just obsessed modders.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <h3>When will Thunderstore support arrive?</h3>
-                <p>
-                    When it's readyTM. We've submitted the request. Now we wait. Patience is a virtue.
                 </p>
             </div>
         </section>
@@ -1144,4 +1130,3 @@
     </script>
 </body>
 </html>
-
