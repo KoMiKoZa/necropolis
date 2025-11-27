@@ -688,49 +688,97 @@
             <h3>This pretty much means you can skip this entire site and go straight to the <a href="https://thunderstore.io/c/necropolis" target="_blank"><u>TS mod page</u></a>. Thunderstore is a well-known solutuion to modding together with mod managers created for it. <a href="https://github.com/Kesomannen/gale" target="_blank"><u>Gale</u></a> is the recommended Mod Manager for Necropolis, see instructions below.</h3>
         </div>
 
-        <!-- Installation Guide -->
-        <section id="guide">
-            <h2>BepInEx Installation Guide</h2>
-            <h3 style="color: var(--secondary-cyan); margin-bottom: 3rem;">
-                So you want to mod Necropolis? Bold. Follow these five steps to install BepInEx. It's not that complicated.
-            </h3>
-
-            <div class="steps">
-                <div class="step">
-                    <h3>Download BepInExPack Necropolis</h3>
-                    <p>
-                        Head to the <a href="https://thunderstore.io/c/necropolis/p/BepInEx/BepInExPack_Necropolis/" target="_blank">Necropolis BiE Pack on Thunderstore</a> 
-                        and download it.
-                    </p>
-                </div>
-
-                <div class="step">
-                    <h3>Locate Your Game Directory</h3>
-                    <p>
-                        Find your Necropolis installation folder. On Steam: right-click <strong style="color: var(--primary-cyan);">Necropolis → Properties → Local Files → Browse</strong>. 
-                        You should see <code>Necropolis.exe</code> in this folder.<br><br>
-                        Typical path: <code>\steamapps\common\Necropolis\</code>
-                    </p>
-                </div>
-
-                <div class="step">
-                    <h3>Extract BepInEx</h3>
-                    <p>
-                        Extract the contents of the BepInEx zip file directly into your Necropolis game folder. 
-                        You should now have a <code>BepInEx</code> folder and <code>winhttp.dll</code> alongside <code>Necropolis.exe</code>.
-                    </p>
-                </div>
-				
-                <div class="step">
-                    <h3>Install Mods</h3>
-                    <p>
-                        Download Necropolis mods from <a href="https://thunderstore.io/c/necropolis/" target="_blank">Thunderstore</a> and place their <code>.dll</code> files into <code>BepInEx/plugins/</code>. 
-                        Some mods may have additional files or folders - follow the mod author's instructions. 
-                        Launch the game and your mods should load automatically.
-                    </p>
-                </div>
-            </div>
-        </section>
+		<!-- Installation Guide -->
+		<section id="guide">
+		    <h2>BepInEx Installation Guide</h2>
+		    <h3 style="color: var(--secondary-cyan); margin-bottom: 3rem;">
+		        So you want to mod Necropolis? Bold. Pick your path: automatic (smart) or manual (masochist).
+		    </h3>
+		
+		    <!-- Automatic Installation -->
+		    <h2 style="margin-top: 4rem; margin-bottom: 2rem;">Automatic Installation (Recommended)</h2>
+		    <div class="steps">
+		        <div class="step">
+		            <h3>Get a Mod Manager</h3>
+		            <p>
+		                Download either <a href="https://github.com/Kesomannen/gale" target="_blank">Gale</a> or 
+		                <a href="https://github.com/ebkr/r2modmanPlus" target="_blank">r2modman</a>. 
+		                Both handle everything for you.
+		            </p>
+		        </div>
+		        <div class="step">
+		            <h3>Add Necropolis</h3>
+		            <p>
+		                Open your mod manager, search for Necropolis in the game list, and select it. 
+		                The manager will detect your Steam installation automatically. If it doesn't, keep the MM open and wait for a bit.
+		            </p>
+		        </div>
+		        <div class="step">
+		            <h3>Browse and Install Mods</h3>
+		            <p>
+		                Search for mods in the built-in browser. Click install. That's it. 
+		                The mod manager handles BepInEx, dependencies, updates, and load order.
+		            </p>
+		        </div>
+		        <div class="step">
+		            <h3>Launch Through Manager</h3>
+		            <p>
+		                Always launch Necropolis through the mod manager. It'll load your mods and keep everything synced. Launching the game normally through steam will load the vanilla game.
+		            </p>
+		        </div>
+		    </div>
+		
+		    <div style="background: rgba(0, 255, 255, 0.1); border-left: 4px solid var(--primary-cyan); padding: 1.5rem; margin: 3rem 0;">
+		        <h3 style="margin-top: 0; color: var(--primary-cyan);">Why Use a Mod Manager?</h3>
+		        <ul style="margin: 0; padding-left: 1.5rem;">
+		            <li>Automatic dependency handling</li>
+		            <li>Launch modded or vanilla</li>					
+		            <li>One-click updates</li>
+		            <li>Profile management (switch mod sets instantly)</li>
+		            <li>No manual file shuffling</li>
+		            <li>Built-in conflict detection</li>
+		            <li>Easy enable/disable without deleting files</li>
+		        </ul>
+		    </div>
+		
+		    <!-- Manual Installation -->
+		    <h2 style="margin-top: 4rem; margin-bottom: 2rem;">Manual Installation</h2>
+		    <p style="color: var(--secondary-cyan); margin-bottom: 2rem;">
+		        For the brave souls who want full control or just enjoy doing things the hard way.
+		    </p>
+		    <div class="steps">
+		        <div class="step">
+		            <h3>Download BepInExPack Necropolis</h3>
+		            <p>
+		                Head to the <a href="https://thunderstore.io/c/necropolis/p/BepInEx/BepInExPack_Necropolis/" target="_blank">Necropolis BepInEx Pack on Thunderstore</a> 
+		                and download it.
+		            </p>
+		        </div>
+		        <div class="step">
+		            <h3>Locate Your Game Directory</h3>
+		            <p>
+		                Find your Necropolis installation folder. On Steam: right-click <strong style="color: var(--primary-cyan);">Necropolis → Properties → Local Files → Browse</strong>. 
+		                You should see <code>Necropolis.exe</code> in this folder.<br><br>
+		                Typical path: <code>\steamapps\common\Necropolis\</code>
+		            </p>
+		        </div>
+		        <div class="step">
+		            <h3>Extract BepInEx</h3>
+		            <p>
+		                Extract the contents of the BepInEx zip file directly into your Necropolis game folder. 
+		                You should now have a <code>BepInEx</code> folder and <code>winhttp.dll</code> alongside <code>Necropolis.exe</code>.
+		            </p>
+		        </div>
+		        <div class="step">
+		            <h3>Install Mods</h3>
+		            <p>
+		                Download Necropolis mods from <a href="https://thunderstore.io/c/necropolis/" target="_blank">Thunderstore</a> and place their <code>.dll</code> files into <code>BepInEx/plugins/</code>. 
+		                Some mods may have additional files or folders - follow the mod author's instructions. 
+		                Launch the game and your mods should load automatically.
+		            </p>
+		        </div>
+		    </div>
+		</section>
 
         <!-- Featured Mods -->
         <section id="mods">
@@ -1130,3 +1178,4 @@
     </script>
 </body>
 </html>
+
