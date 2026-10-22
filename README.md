@@ -27,9 +27,11 @@ The official-unofficial hub for Necropolis mods, guides, and the handful of peop
 necropolis/
 ├── index.html          # The front door
 ├── 404.html            # The back door (you weren't supposed to find this)
-├── mods.html           # The treasure room
+├── mods.html           # Redirect to Thunderstore
 ├── mods/
-│   └── mod-config-menu.html  # Individual mod pages live here
+│   ├── mod-config-menu.html     # Redirect to the Thunderstore package
+│   ├── mod-config-manager.html  # Redirect for the old alternate URL
+│   └── csv-patcher.html         # Redirect to the Thunderstore package
 ├── css/
 │   └── styles.css      # Shared styles (the real MVP)
 ├── js/
@@ -61,3 +63,8 @@ Every page load picks a random accent color. Yes, it's like the game's random fl
 ---
 
 *Necropolis Modding Hub is a fan project with no official affiliation to Harebrained Schemes or Paradox Interactive. We're just here because we have unfinished business with the Brazen Head.*
+
+## Mod downloads
+
+The catalogue and mod documentation now live on https://thunderstore.io/c/necropolis/.
+Featured cards link directly to their packages. Legacy HTML routes contain only redirects for existing bookmarks.
